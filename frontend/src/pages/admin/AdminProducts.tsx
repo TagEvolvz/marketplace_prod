@@ -102,7 +102,7 @@ const ProductForm: React.FC<{ product?: any; onClose: () => void; onSuccess: () 
     <motion.div variants={scaleIn} initial="initial" animate="animate" exit="exit"
       className="fixed inset-0 z-50 flex items-start justify-center p-4 pt-10 overflow-y-auto">
       <div className="absolute inset-0 bg-black/50" onClick={onClose} />
-      <div className="relative bg-white rounded-2xl w-full max-w-2xl shadow-2xl mb-8" onClick={(e) => e.stopPropagation()}>
+      <div className="light-form-surface relative bg-white text-slate-900 rounded-2xl w-full max-w-2xl shadow-2xl mb-8" onClick={(e) => e.stopPropagation()}>
         {/* Header */}
         <div className="flex items-center justify-between px-6 py-4 border-b border-slate-100">
           <div>
@@ -267,9 +267,9 @@ const ProductForm: React.FC<{ product?: any; onClose: () => void; onSuccess: () 
 
           {/* Buttons */}
           <div className="flex gap-3 pt-2 border-t border-slate-100">
-            <button type="button" onClick={onClose} className="btn-secondary flex-1 py-3">Cancel</button>
+            <button type="button" onClick={onClose} className="flex-1 py-3 rounded-xl border border-slate-200 bg-white text-sm font-semibold text-slate-700 hover:bg-slate-50 transition-colors">Cancel</button>
             <motion.button type="submit" disabled={saving} whileTap={buttonTap}
-              className="btn-secondary flex-1 py-3 disabled:opacity-60">
+              className="btn-primary flex-1 py-3 disabled:opacity-60">
               {saving
                 ? <><Loader2 className="w-4 h-4 animate-spin" /> Saving...</>
                 : isEdit ? 'Update Product' : 'Add Product'

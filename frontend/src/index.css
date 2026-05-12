@@ -102,6 +102,21 @@
     @apply text-slate-700;
   }
 
+  /* Light modals/forms can appear inside the dark app shell. Keep fields readable. */
+  .light-form-surface .input {
+    @apply bg-white border-slate-200 text-slate-900 placeholder-slate-400;
+  }
+  .light-form-surface .input:disabled {
+    @apply bg-slate-50 text-slate-500 cursor-not-allowed;
+  }
+  .light-form-surface .label {
+    @apply text-slate-700;
+  }
+  .light-form-surface select option {
+    color: #0f172a;
+    background: #ffffff;
+  }
+
   /* Section Title */
   .section-title {
     @apply font-display text-3xl md:text-4xl font-extrabold tracking-tight text-white mb-8 uppercase;

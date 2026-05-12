@@ -130,7 +130,7 @@ const AIAssistant: React.FC = () => {
               <input ref={inputRef} type="text" value={input} onChange={(e) => setInput(e.target.value)}
                 onKeyDown={(e) => e.key === 'Enter' && !e.shiftKey && send()}
                 placeholder="Ask me anything..." disabled={loading}
-                className="flex-1 bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-[13px] outline-none focus:border-green-400 focus:ring-2 focus:ring-green-400/10 transition-all" />
+                className="flex-1 bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-[13px] text-slate-900 placeholder:text-slate-400 caret-green-600 outline-none focus:border-green-400 focus:ring-2 focus:ring-green-400/10 disabled:text-slate-500 transition-all" />
               <motion.button onClick={() => send()} disabled={!input.trim() || loading} whileTap={buttonTap}
                 className="w-9 h-9 bg-green-600 hover:bg-green-700 disabled:opacity-40 text-white rounded-xl flex items-center justify-center flex-shrink-0 transition-colors">
                 {loading ? <Loader2 className="w-4 h-4 animate-spin" /> : <Send className="w-4 h-4" />}
