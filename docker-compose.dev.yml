@@ -1,0 +1,36 @@
+version: '3.9'
+
+# Development override — hot reload for backend & frontend
+# Usage: docker compose -f docker-compose.yml -f docker-compose.dev.yml up
+
+services:
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+      target: builder        # Use builder stage for dev
+    command: npm run dev
+    environment:
+      NODE_ENV: development
+    volumes:
+      - ./backend/src:/app/src:delegated
+      - ./backend/.env:/app/.env:ro
+      - /app/node_modules    # Anonymous volume — keeps container's node_modules
+    ports:
+      - "5000:5000"
+      - "9229:9229"          # Node.js debugger port
+
+  frontend:
+    image: node:20-alpine
+    container_name: marketplace_frontend_dev
+    working_dir: /app
+    command: sh -c "npm install && npm run dev -- --host"
+    environment:
+      VITE_API_URL: http://localhost:5000/api/v1
+    volumes:
+      - ./frontend:/app:delegated
+      - /app/node_modules
+    ports:
+      - "3000:3000"
+    depends_on:
+      - backend

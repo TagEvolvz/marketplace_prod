@@ -1,0 +1,49 @@
+{
+  "preset": "ts-jest",
+  "testEnvironment": "node",
+  "roots": ["<rootDir>/src"],
+  "testMatch": ["**/__tests__/**/*.ts", "**/*.test.ts", "**/*.spec.ts"],
+  "transform": {
+    "^.+\\.tsx?$": ["ts-jest", { "tsconfig": "tsconfig.json" }]
+  },
+  "coverageDirectory": "coverage",
+  "collectCoverageFrom": [
+    "src/services/**/*.ts",
+    "src/controllers/**/*.ts",
+    "src/middleware/**/*.ts",
+    "src/utils/**/*.ts",
+    "!src/scripts/**",
+    "!src/types/**"
+  ],
+  "coverageReporters": ["text", "lcov", "html"],
+  "coverageThresholds": {
+    "global": {
+      "lines": 60,
+      "functions": 60,
+      "branches": 50
+    }
+  },
+  "testTimeout": 30000,
+  "verbose": true,
+  "moduleNameMapper": {
+    "^@/(.*)$": "<rootDir>/src/$1"
+  },
+  "projects": [
+    {
+      "displayName": "unit",
+      "testMatch": [
+        "<rootDir>/src/__tests__/auth.service.test.ts",
+        "<rootDir>/src/__tests__/product.service.test.ts",
+        "<rootDir>/src/__tests__/cart.service.test.ts"
+      ]
+    },
+    {
+      "displayName": "integration",
+      "testMatch": [
+        "<rootDir>/src/__tests__/api.integration.test.ts",
+        "<rootDir>/src/__tests__/checkout.e2e.test.ts"
+      ],
+      "testTimeout": 60000
+    }
+  ]
+}
