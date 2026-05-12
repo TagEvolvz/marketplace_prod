@@ -53,9 +53,9 @@ const ProductDetailPage: React.FC = () => {
   );
 
   if (!product) return (
-    <div className="max-w-7xl mx-auto px-4 py-24 text-center">
+    <div className="page-container pt-28 pb-24 text-center">
       <Package className="w-16 h-16 text-slate-700 mx-auto mb-6 opacity-20" />
-      <p className="text-slate-400 font-medium mb-8">This item has drifted out of our current flow.</p>
+      <p className="mb-8 font-medium text-slate-500">This item is not available right now.</p>
       <Link to="/products" className="btn-primary inline-flex">Return to Shop</Link>
     </div>
   );
@@ -65,29 +65,27 @@ const ProductDetailPage: React.FC = () => {
   const catName = typeof product.category === 'object' ? product.category.name : '';
 
   return (
-    <div className="relative pt-28 pb-16 font-sans overflow-hidden">
-      {/* Cinematic Background */}
-      <div className="fixed inset-0 pointer-events-none -z-10">
+    <div className="relative overflow-hidden pt-28 pb-16 font-sans">
+      <div className="hidden">
         <div className="absolute top-[20%] right-[-10%] w-[500px] h-[500px] bg-brand-primary/5 blur-[120px] rounded-full" />
         <div className="absolute bottom-[20%] left-[-10%] w-[400px] h-[400px] bg-brand-neon/5 blur-[100px] rounded-full" />
       </div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6">
+      <div className="page-container">
         {/* Breadcrumb */}
-        <nav className="flex items-center gap-2 text-[10px] font-bold uppercase tracking-widest text-slate-500 mb-6 overflow-x-auto whitespace-nowrap scrollbar-hide">
+        <nav className="mb-6 flex items-center gap-2 overflow-x-auto whitespace-nowrap text-xs font-semibold text-slate-500">
           <Link to="/" className="hover:text-brand-primary transition-colors">Home</Link>
           <ChevronRight size={10} className="text-slate-700 flex-shrink-0" />
           <Link to="/products" className="hover:text-brand-primary transition-colors">Shop</Link>
           <ChevronRight size={10} className="text-slate-700 flex-shrink-0" />
-          <span className="text-white truncate">{product.name}</span>
+          <span className="truncate text-slate-900 dark:text-white">{product.name}</span>
         </nav>
 
         <div className="grid lg:grid-cols-[1.05fr_0.95fr] gap-8 lg:gap-12 mb-14">
           {/* ── Left: Immersive Media ────────────────────────────────────── */}
           <motion.div {...fadeIn} className="space-y-4">
             <div className="relative group">
-              <div className="absolute -inset-1 bg-brand-gradient rounded-2xl blur opacity-10 group-hover:opacity-15 transition duration-500"></div>
-              <div className="relative aspect-square rounded-2xl overflow-hidden glass border border-white/10">
+              <div className="relative aspect-square overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-soft dark:border-white/10 dark:bg-slate-900">
                 <AnimatePresence mode="wait">
                   <motion.img
                     key={activeImg}
@@ -97,13 +95,13 @@ const ProductDetailPage: React.FC = () => {
                     animate={{ opacity: 1, scale: 1 }}
                     exit={{ opacity: 0, scale: 0.95 }}
                     transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-                    className="w-full h-full object-cover"
+                    className="h-full w-full object-cover"
                   />
                 </AnimatePresence>
 
                 {discount > 0 && (
-                  <div className="absolute top-4 left-4 bg-brand-neon text-black text-[11px] font-bold px-3 py-1.5 rounded-xl shadow-lg">
-                    -{discount}% EXCLUSIVE
+                  <div className="absolute left-4 top-4 rounded-full bg-slate-950 px-3 py-1.5 text-[11px] font-bold text-white shadow-lg dark:bg-brand-primary dark:text-slate-950">
+                    -{discount}%
                   </div>
                 )}
               </div>
@@ -116,7 +114,7 @@ const ProductDetailPage: React.FC = () => {
                     key={i}
                     onClick={() => setActiveImg(i)}
                     className={`relative w-[72px] h-[72px] flex-shrink-0 rounded-xl overflow-hidden transition-all duration-300 ${
-                      activeImg === i ? 'ring-2 ring-brand-primary ring-offset-2 ring-offset-black' : 'opacity-50 hover:opacity-100'
+                      activeImg === i ? 'ring-2 ring-brand-primary ring-offset-2 ring-offset-white dark:ring-offset-slate-950' : 'opacity-60 hover:opacity-100'
                     }`}
                   >
                     <img src={img.url} alt="" className="w-full h-full object-cover" />
@@ -130,11 +128,11 @@ const ProductDetailPage: React.FC = () => {
           <motion.div {...slideUp} className="flex flex-col">
             <div className="mb-6">
               <div className="flex items-center gap-3 mb-3">
-                <span className="bg-brand-primary/10 text-brand-primary text-[10px] font-bold tracking-widest uppercase px-2.5 py-1 rounded-lg border border-brand-primary/20">
+                <span className="badge-primary text-[10px]">
                   {catName || 'Premium Choice'}
                 </span>
                 {product.status === 'active' ? (
-                  <span className="flex items-center gap-1.5 text-xs font-bold text-emerald-400">
+                  <span className="flex items-center gap-1.5 text-xs font-bold text-emerald-600 dark:text-emerald-400">
                     <Check size={14} /> In Stock
                   </span>
                 ) : (
@@ -142,27 +140,27 @@ const ProductDetailPage: React.FC = () => {
                 )}
               </div>
 
-              <h1 className="font-display text-3xl md:text-4xl font-extrabold text-white tracking-tight leading-tight mb-4 uppercase">
+              <h1 className="mb-4 text-3xl font-extrabold leading-tight tracking-tight text-slate-950 dark:text-white md:text-4xl">
                 {product.name}
               </h1>
 
               <div className="flex items-center gap-6">
                 <div className="flex items-center gap-2">
-                  <div className="flex text-brand-neon">
+                  <div className="flex text-amber-400">
                     {[...Array(5)].map((_, i) => (
                       <Star key={i} size={16} className={i < Math.round(product.rating) ? 'fill-current' : 'opacity-20'} />
                     ))}
                   </div>
-                <span className="text-sm font-bold text-white">{product.rating?.toFixed(1)}</span>
+                <span className="text-sm font-bold text-slate-900 dark:text-white">{product.rating?.toFixed(1)}</span>
                 </div>
-                <div className="h-4 w-px bg-white/10" />
+                <div className="h-4 w-px bg-slate-200 dark:bg-white/10" />
                 <span className="text-xs text-slate-500 font-semibold">{product.totalRatings} VERIFIED REVIEWS</span>
               </div>
             </div>
 
-            <div className="glass rounded-2xl p-6 border border-white/10 mb-6">
+            <div className="surface mb-6 rounded-2xl p-6">
               <div className="flex items-baseline gap-3 mb-5">
-                <span className="text-3xl font-extrabold text-white tracking-tight">
+                <span className="text-3xl font-extrabold tracking-tight text-slate-950 dark:text-white">
                   {formatCurrency(product.effectivePrice)}
                 </span>
                 {product.compareAtPrice && product.compareAtPrice > product.effectivePrice && (
@@ -173,7 +171,7 @@ const ProductDetailPage: React.FC = () => {
               </div>
 
               {product.shortDescription && (
-                <p className="text-slate-400 text-sm leading-relaxed mb-6 font-medium">
+                <p className="mb-6 text-sm font-medium leading-relaxed text-slate-600 dark:text-slate-300">
                   {product.shortDescription}
                 </p>
               )}
@@ -183,19 +181,19 @@ const ProductDetailPage: React.FC = () => {
                 {/* Quantity */}
                 <div className="flex items-center justify-between">
                   <span className="text-xs font-bold text-slate-500 uppercase tracking-widest">Quantity</span>
-                  <div className="flex items-center glass rounded-xl p-1 border border-white/5">
+                  <div className="flex items-center rounded-xl border border-slate-200 bg-white p-1 dark:border-white/10 dark:bg-white/5">
                     <motion.button
                       whileTap={buttonTap}
                       onClick={() => setQuantity(Math.max(1, quantity - 1))}
-                      className="w-9 h-9 flex items-center justify-center rounded-lg hover:bg-white/5 text-white transition-colors"
+                      className="flex h-9 w-9 items-center justify-center rounded-lg text-slate-700 transition-colors hover:bg-slate-100 dark:text-white dark:hover:bg-white/10"
                     >
                       <Minus size={16} />
                     </motion.button>
-                    <span className="w-12 text-center text-sm font-black text-white">{quantity}</span>
+                    <span className="w-12 text-center text-sm font-black text-slate-950 dark:text-white">{quantity}</span>
                     <motion.button
                       whileTap={buttonTap}
                       onClick={() => setQuantity(Math.min(product.stock || 50, quantity + 1))}
-                      className="w-9 h-9 flex items-center justify-center rounded-lg hover:bg-white/5 text-white transition-colors"
+                      className="flex h-9 w-9 items-center justify-center rounded-lg text-slate-700 transition-colors hover:bg-slate-100 dark:text-white dark:hover:bg-white/10"
                     >
                       <Plus size={16} />
                     </motion.button>
@@ -207,7 +205,7 @@ const ProductDetailPage: React.FC = () => {
                     whileTap={buttonTap}
                     onClick={handleAddToCart}
                     disabled={adding || product.status === 'out_of_stock'}
-                    className="flex-1 btn-primary !py-3 text-sm uppercase tracking-wide font-bold flex items-center justify-center gap-2"
+                    className="btn-primary flex-1"
                   >
                     {adding ? <Loader2 className="w-5 h-5 animate-spin" /> : <ShoppingCart size={18} />}
                     {product.status === 'out_of_stock' ? 'Out of Stock' : 'Add to Cart'}
@@ -217,7 +215,7 @@ const ProductDetailPage: React.FC = () => {
                     whileTap={buttonTap}
                     onClick={() => { setWishlisted(!wishlisted); toast.success(wishlisted ? 'Removed from wishlist' : 'Added to wishlist'); }}
                     className={`w-12 h-12 rounded-xl glass border flex items-center justify-center transition-all duration-300 ${
-                      wishlisted ? 'border-brand-neon text-brand-neon bg-brand-neon/5 shadow-[0_0_20px_rgba(57,255,20,0.2)]' : 'border-white/10 text-white hover:border-white/20'
+                      wishlisted ? 'border-brand-primary text-brand-dark bg-brand-primary/10 dark:text-brand-primary' : 'border-slate-200 text-slate-700 hover:border-slate-300 dark:border-white/10 dark:text-white dark:hover:border-white/20'
                     }`}
                   >
                     <Heart size={20} className={wishlisted ? 'fill-current' : ''} />
