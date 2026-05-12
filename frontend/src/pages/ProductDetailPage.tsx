@@ -231,7 +231,7 @@ const ProductDetailPage: React.FC = () => {
                 { icon: <Shield size={18} />, label: 'Secure Pay' },
                 { icon: <RefreshCw size={18} />, label: 'Easy Returns' },
               ].map((item, i) => (
-                <div key={i} className="flex flex-col items-center gap-2 p-3 rounded-xl bg-white/[0.02] border border-white/5 group hover:bg-white/[0.05] transition-colors">
+                <div key={i} className="group flex flex-col items-center gap-2 rounded-xl border border-slate-200 bg-white/70 p-3 transition-colors hover:bg-white dark:border-white/10 dark:bg-white/[0.04] dark:hover:bg-white/[0.07]">
                   <div className="text-brand-primary group-hover:scale-110 transition-transform">{item.icon}</div>
                   <span className="text-[10px] font-black text-slate-500 uppercase tracking-tight">{item.label}</span>
                 </div>
@@ -241,21 +241,21 @@ const ProductDetailPage: React.FC = () => {
         </div>
 
         {/* ── Tabs Content ────────────────────────────────────────────────── */}
-        <div className="glass rounded-2xl border border-white/10 overflow-hidden">
-          <div className="flex border-b border-white/10 bg-white/[0.02]">
+        <div className="surface overflow-hidden rounded-2xl">
+          <div className="flex border-b border-slate-200 bg-slate-50/70 dark:border-white/10 dark:bg-white/[0.03]">
             {(['description', 'specs', 'reviews'] as const).map((tab) => (
               <button
                 key={tab}
                 onClick={() => setActiveTab(tab)}
                 className={`relative px-6 py-4 text-xs font-bold uppercase tracking-wide transition-all ${
-                  activeTab === tab ? 'text-brand-neon' : 'text-slate-500 hover:text-white'
+                  activeTab === tab ? 'text-brand-dark dark:text-brand-primary' : 'text-slate-500 hover:text-slate-900 dark:hover:text-white'
                 }`}
               >
                 {tab === 'reviews' ? `Reviews (${product.totalRatings})` : tab}
                 {activeTab === tab && (
                   <motion.div
                     layoutId="activeTab"
-                    className="absolute bottom-0 left-0 right-0 h-1 bg-brand-neon shadow-[0_0_15px_#39FF14]"
+                    className="absolute bottom-0 left-0 right-0 h-1 bg-brand-primary"
                   />
                 )}
               </button>
@@ -269,12 +269,12 @@ const ProductDetailPage: React.FC = () => {
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -10 }}
-                className="text-slate-400 leading-relaxed font-medium"
+                className="font-medium leading-relaxed text-slate-600 dark:text-slate-300"
               >
                 {activeTab === 'description' && (
                   <div className="max-w-4xl">
-                    <p className="text-base text-white mb-4 font-bold">{product.name} Details</p>
-                    <div className="prose prose-invert max-w-none">
+                    <p className="mb-4 text-base font-bold text-slate-950 dark:text-white">{product.name} Details</p>
+                    <div className="max-w-none">
                       {product.description?.split('\n').map((line: string, i: number) => (
                         <p key={i} className="mb-4">{line}</p>
                       ))}
@@ -291,9 +291,9 @@ const ProductDetailPage: React.FC = () => {
                       { label: 'Net Weight', value: product.weight ? `${product.weight} kg` : 'N/A' },
                       { label: 'First Flow Date', value: formatDate(product.createdAt) },
                     ].map((row) => (
-                      <div key={row.label} className="flex justify-between items-center py-3 border-b border-white/5">
+                      <div key={row.label} className="flex items-center justify-between border-b border-slate-200 py-3 dark:border-white/10">
                         <span className="text-xs font-bold uppercase tracking-wide text-slate-500">{row.label}</span>
-                        <span className="text-sm font-bold text-white">{row.value}</span>
+                        <span className="text-sm font-bold text-slate-950 dark:text-white">{row.value}</span>
                       </div>
                     ))}
                   </div>
@@ -301,8 +301,8 @@ const ProductDetailPage: React.FC = () => {
 
                 {activeTab === 'reviews' && (
                   <div className="text-center py-14">
-                    <Sparkles className="w-10 h-10 text-brand-neon mx-auto mb-4 opacity-20" />
-                    <p className="text-lg font-bold text-white mb-2">Community Feedback</p>
+                    <Sparkles className="mx-auto mb-4 h-10 w-10 text-brand-primary opacity-30" />
+                    <p className="mb-2 text-lg font-bold text-slate-950 dark:text-white">Community Feedback</p>
                     <p>Verified reviews are currently being processed into the flow.</p>
                   </div>
                 )}
