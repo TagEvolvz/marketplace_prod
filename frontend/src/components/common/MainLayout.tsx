@@ -64,8 +64,8 @@ const Navbar: React.FC = () => {
     <header className="fixed inset-x-0 top-0 z-50 px-3 pt-3 sm:px-6">
       <nav className={`mx-auto max-w-7xl rounded-2xl border transition-all duration-300 ${
         isScrolled
-          ? 'border-slate-200/80 bg-white/88 shadow-soft backdrop-blur-xl dark:border-white/10 dark:bg-slate-950/80'
-          : 'border-white/70 bg-white/70 backdrop-blur-xl dark:border-white/10 dark:bg-slate-950/58'
+          ? 'border-slate-200/80 bg-white/90 shadow-soft backdrop-blur-xl dark:border-white/10 dark:bg-slate-950/80'
+          : 'border-white/70 bg-white/70 backdrop-blur-xl dark:border-white/10 dark:bg-slate-950/60'
       }`}>
         <div className="flex h-16 items-center gap-3 px-3 sm:px-4">
           <Link to="/" className="flex shrink-0 items-center gap-3 rounded-xl pr-1">

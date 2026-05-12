@@ -58,7 +58,7 @@
   .caption { @apply text-xs leading-5 text-slate-500 dark:text-slate-400; }
 
   .surface {
-    @apply bg-white/90 border border-slate-200/80 shadow-soft backdrop-blur-xl dark:bg-slate-900/78 dark:border-white/10;
+    @apply bg-white/90 border border-slate-200/80 shadow-soft backdrop-blur-xl dark:bg-slate-900/80 dark:border-white/10;
   }
 
   .surface-muted {
@@ -184,7 +184,7 @@
   }
   .skeleton::after {
     content: '';
-    @apply absolute inset-0 -translate-x-full animate-shimmer bg-gradient-to-r from-transparent via-white/55 to-transparent dark:via-white/10;
+    @apply absolute inset-0 -translate-x-full animate-shimmer bg-gradient-to-r from-transparent via-white/50 to-transparent dark:via-white/10;
   }
 }
 
