@@ -41,7 +41,7 @@ const ProductDetailPage: React.FC = () => {
   if (isLoading) return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 py-12 pt-32">
       <div className="grid lg:grid-cols-2 gap-16">
-        <div className="aspect-square rounded-[32px] bg-white/5 animate-pulse" />
+        <div className="aspect-square rounded-2xl bg-white/5 animate-pulse" />
         <div className="space-y-6">
           <div className="h-10 bg-white/5 rounded-2xl w-3/4 animate-pulse" />
           <div className="h-6 bg-white/5 rounded-xl w-1/2 animate-pulse" />
@@ -53,7 +53,7 @@ const ProductDetailPage: React.FC = () => {
   );
 
   if (!product) return (
-    <div className="max-w-7xl mx-auto px-4 py-32 text-center">
+    <div className="max-w-7xl mx-auto px-4 py-24 text-center">
       <Package className="w-16 h-16 text-slate-700 mx-auto mb-6 opacity-20" />
       <p className="text-slate-400 font-medium mb-8">This item has drifted out of our current flow.</p>
       <Link to="/products" className="btn-primary inline-flex">Return to Shop</Link>
@@ -65,7 +65,7 @@ const ProductDetailPage: React.FC = () => {
   const catName = typeof product.category === 'object' ? product.category.name : '';
 
   return (
-    <div className="relative pt-32 pb-24 font-sans overflow-hidden">
+    <div className="relative pt-28 pb-16 font-sans overflow-hidden">
       {/* Cinematic Background */}
       <div className="fixed inset-0 pointer-events-none -z-10">
         <div className="absolute top-[20%] right-[-10%] w-[500px] h-[500px] bg-brand-primary/5 blur-[120px] rounded-full" />
@@ -74,7 +74,7 @@ const ProductDetailPage: React.FC = () => {
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6">
         {/* Breadcrumb */}
-        <nav className="flex items-center gap-3 text-[10px] font-black uppercase tracking-[0.2em] text-slate-500 mb-10 overflow-x-auto whitespace-nowrap scrollbar-hide">
+        <nav className="flex items-center gap-2 text-[10px] font-bold uppercase tracking-widest text-slate-500 mb-6 overflow-x-auto whitespace-nowrap scrollbar-hide">
           <Link to="/" className="hover:text-brand-primary transition-colors">Home</Link>
           <ChevronRight size={10} className="text-slate-700 flex-shrink-0" />
           <Link to="/products" className="hover:text-brand-primary transition-colors">Shop</Link>
@@ -82,12 +82,12 @@ const ProductDetailPage: React.FC = () => {
           <span className="text-white truncate">{product.name}</span>
         </nav>
 
-        <div className="grid lg:grid-cols-[1.1fr_0.9fr] gap-12 lg:gap-20 mb-20">
+        <div className="grid lg:grid-cols-[1.05fr_0.95fr] gap-8 lg:gap-12 mb-14">
           {/* ── Left: Immersive Media ────────────────────────────────────── */}
-          <motion.div {...fadeIn} className="space-y-6">
+          <motion.div {...fadeIn} className="space-y-4">
             <div className="relative group">
-              <div className="absolute -inset-1 bg-brand-gradient rounded-[40px] blur opacity-10 group-hover:opacity-20 transition duration-1000"></div>
-              <div className="relative aspect-square rounded-[36px] overflow-hidden glass border border-white/10">
+              <div className="absolute -inset-1 bg-brand-gradient rounded-2xl blur opacity-10 group-hover:opacity-15 transition duration-500"></div>
+              <div className="relative aspect-square rounded-2xl overflow-hidden glass border border-white/10">
                 <AnimatePresence mode="wait">
                   <motion.img
                     key={activeImg}
@@ -102,7 +102,7 @@ const ProductDetailPage: React.FC = () => {
                 </AnimatePresence>
 
                 {discount > 0 && (
-                  <div className="absolute top-6 left-6 bg-brand-neon text-black text-xs font-black px-4 py-2 rounded-2xl shadow-2xl">
+                  <div className="absolute top-4 left-4 bg-brand-neon text-black text-[11px] font-bold px-3 py-1.5 rounded-xl shadow-lg">
                     -{discount}% EXCLUSIVE
                   </div>
                 )}
@@ -110,13 +110,13 @@ const ProductDetailPage: React.FC = () => {
             </div>
 
             {product.images?.length > 1 && (
-              <div className="flex gap-4 overflow-x-auto pb-4 scrollbar-thin">
+              <div className="flex gap-3 overflow-x-auto pb-3 scrollbar-thin">
                 {product.images.map((img: { url: string }, i: number) => (
                   <button
                     key={i}
                     onClick={() => setActiveImg(i)}
-                    className={`relative w-24 h-24 flex-shrink-0 rounded-2xl overflow-hidden transition-all duration-300 ${
-                      activeImg === i ? 'ring-2 ring-brand-primary ring-offset-4 ring-offset-black' : 'opacity-40 hover:opacity-100'
+                    className={`relative w-[72px] h-[72px] flex-shrink-0 rounded-xl overflow-hidden transition-all duration-300 ${
+                      activeImg === i ? 'ring-2 ring-brand-primary ring-offset-2 ring-offset-black' : 'opacity-50 hover:opacity-100'
                     }`}
                   >
                     <img src={img.url} alt="" className="w-full h-full object-cover" />
@@ -128,9 +128,9 @@ const ProductDetailPage: React.FC = () => {
 
           {/* ── Right: Premium Configuration ─────────────────────────────── */}
           <motion.div {...slideUp} className="flex flex-col">
-            <div className="mb-8">
-              <div className="flex items-center gap-3 mb-4">
-                <span className="bg-brand-primary/10 text-brand-primary text-[10px] font-black tracking-widest uppercase px-3 py-1 rounded-lg border border-brand-primary/20">
+            <div className="mb-6">
+              <div className="flex items-center gap-3 mb-3">
+                <span className="bg-brand-primary/10 text-brand-primary text-[10px] font-bold tracking-widest uppercase px-2.5 py-1 rounded-lg border border-brand-primary/20">
                   {catName || 'Premium Choice'}
                 </span>
                 {product.status === 'active' ? (
@@ -142,7 +142,7 @@ const ProductDetailPage: React.FC = () => {
                 )}
               </div>
 
-              <h1 className="font-display text-4xl md:text-5xl font-black text-white tracking-tighter leading-tight mb-4 uppercase">
+              <h1 className="font-display text-3xl md:text-4xl font-extrabold text-white tracking-tight leading-tight mb-4 uppercase">
                 {product.name}
               </h1>
 
@@ -153,41 +153,41 @@ const ProductDetailPage: React.FC = () => {
                       <Star key={i} size={16} className={i < Math.round(product.rating) ? 'fill-current' : 'opacity-20'} />
                     ))}
                   </div>
-                  <span className="text-sm font-black text-white">{product.rating?.toFixed(1)}</span>
+                <span className="text-sm font-bold text-white">{product.rating?.toFixed(1)}</span>
                 </div>
                 <div className="h-4 w-px bg-white/10" />
-                <span className="text-sm text-slate-500 font-bold">{product.totalRatings} VERIFIED REVIEWS</span>
+                <span className="text-xs text-slate-500 font-semibold">{product.totalRatings} VERIFIED REVIEWS</span>
               </div>
             </div>
 
-            <div className="glass rounded-[32px] p-8 border border-white/10 mb-8">
-              <div className="flex items-baseline gap-4 mb-8">
-                <span className="text-5xl font-black text-white tracking-tighter">
+            <div className="glass rounded-2xl p-6 border border-white/10 mb-6">
+              <div className="flex items-baseline gap-3 mb-5">
+                <span className="text-3xl font-extrabold text-white tracking-tight">
                   {formatCurrency(product.effectivePrice)}
                 </span>
                 {product.compareAtPrice && product.compareAtPrice > product.effectivePrice && (
-                  <span className="text-xl text-slate-500 line-through font-medium">
+                  <span className="text-base text-slate-500 line-through font-medium">
                     {formatCurrency(product.compareAtPrice)}
                   </span>
                 )}
               </div>
 
               {product.shortDescription && (
-                <p className="text-slate-400 text-sm leading-relaxed mb-8 font-medium">
+                <p className="text-slate-400 text-sm leading-relaxed mb-6 font-medium">
                   {product.shortDescription}
                 </p>
               )}
 
               {/* Interaction Block */}
-              <div className="space-y-8">
+              <div className="space-y-5">
                 {/* Quantity */}
                 <div className="flex items-center justify-between">
-                  <span className="text-xs font-black text-slate-500 uppercase tracking-widest">Quantity</span>
-                  <div className="flex items-center glass rounded-2xl p-1 border border-white/5">
+                  <span className="text-xs font-bold text-slate-500 uppercase tracking-widest">Quantity</span>
+                  <div className="flex items-center glass rounded-xl p-1 border border-white/5">
                     <motion.button
                       whileTap={buttonTap}
                       onClick={() => setQuantity(Math.max(1, quantity - 1))}
-                      className="w-10 h-10 flex items-center justify-center rounded-xl hover:bg-white/5 text-white transition-colors"
+                      className="w-9 h-9 flex items-center justify-center rounded-lg hover:bg-white/5 text-white transition-colors"
                     >
                       <Minus size={16} />
                     </motion.button>
@@ -195,7 +195,7 @@ const ProductDetailPage: React.FC = () => {
                     <motion.button
                       whileTap={buttonTap}
                       onClick={() => setQuantity(Math.min(product.stock || 50, quantity + 1))}
-                      className="w-10 h-10 flex items-center justify-center rounded-xl hover:bg-white/5 text-white transition-colors"
+                      className="w-9 h-9 flex items-center justify-center rounded-lg hover:bg-white/5 text-white transition-colors"
                     >
                       <Plus size={16} />
                     </motion.button>
@@ -207,7 +207,7 @@ const ProductDetailPage: React.FC = () => {
                     whileTap={buttonTap}
                     onClick={handleAddToCart}
                     disabled={adding || product.status === 'out_of_stock'}
-                    className="flex-1 btn-primary !py-5 text-sm uppercase tracking-widest font-black flex items-center justify-center gap-3"
+                    className="flex-1 btn-primary !py-3 text-sm uppercase tracking-wide font-bold flex items-center justify-center gap-2"
                   >
                     {adding ? <Loader2 className="w-5 h-5 animate-spin" /> : <ShoppingCart size={18} />}
                     {product.status === 'out_of_stock' ? 'Out of Stock' : 'Add to Cart'}
@@ -216,24 +216,24 @@ const ProductDetailPage: React.FC = () => {
                   <motion.button
                     whileTap={buttonTap}
                     onClick={() => { setWishlisted(!wishlisted); toast.success(wishlisted ? 'Removed from wishlist' : 'Added to wishlist'); }}
-                    className={`w-16 h-16 rounded-2xl glass border flex items-center justify-center transition-all duration-500 ${
+                    className={`w-12 h-12 rounded-xl glass border flex items-center justify-center transition-all duration-300 ${
                       wishlisted ? 'border-brand-neon text-brand-neon bg-brand-neon/5 shadow-[0_0_20px_rgba(57,255,20,0.2)]' : 'border-white/10 text-white hover:border-white/20'
                     }`}
                   >
-                    <Heart size={24} className={wishlisted ? 'fill-current' : ''} />
+                    <Heart size={20} className={wishlisted ? 'fill-current' : ''} />
                   </motion.button>
                 </div>
               </div>
             </div>
 
             {/* Premium Trust Strip */}
-            <div className="grid grid-cols-3 gap-4">
+            <div className="grid grid-cols-3 gap-3">
               {[
                 { icon: <Truck size={18} />, label: 'Fast Delivery' },
                 { icon: <Shield size={18} />, label: 'Secure Pay' },
                 { icon: <RefreshCw size={18} />, label: 'Easy Returns' },
               ].map((item, i) => (
-                <div key={i} className="flex flex-col items-center gap-2 p-4 rounded-2xl bg-white/[0.02] border border-white/5 group hover:bg-white/[0.05] transition-colors">
+                <div key={i} className="flex flex-col items-center gap-2 p-3 rounded-xl bg-white/[0.02] border border-white/5 group hover:bg-white/[0.05] transition-colors">
                   <div className="text-brand-primary group-hover:scale-110 transition-transform">{item.icon}</div>
                   <span className="text-[10px] font-black text-slate-500 uppercase tracking-tight">{item.label}</span>
                 </div>
@@ -243,13 +243,13 @@ const ProductDetailPage: React.FC = () => {
         </div>
 
         {/* ── Tabs Content ────────────────────────────────────────────────── */}
-        <div className="glass rounded-[40px] border border-white/10 overflow-hidden">
+        <div className="glass rounded-2xl border border-white/10 overflow-hidden">
           <div className="flex border-b border-white/10 bg-white/[0.02]">
             {(['description', 'specs', 'reviews'] as const).map((tab) => (
               <button
                 key={tab}
                 onClick={() => setActiveTab(tab)}
-                className={`relative px-10 py-6 text-xs font-black uppercase tracking-widest transition-all ${
+                className={`relative px-6 py-4 text-xs font-bold uppercase tracking-wide transition-all ${
                   activeTab === tab ? 'text-brand-neon' : 'text-slate-500 hover:text-white'
                 }`}
               >
@@ -264,7 +264,7 @@ const ProductDetailPage: React.FC = () => {
             ))}
           </div>
 
-          <div className="p-10">
+          <div className="p-6">
             <AnimatePresence mode="wait">
               <motion.div
                 key={activeTab}
@@ -275,7 +275,7 @@ const ProductDetailPage: React.FC = () => {
               >
                 {activeTab === 'description' && (
                   <div className="max-w-4xl">
-                    <p className="text-lg text-white mb-6 font-bold">{product.name} Details</p>
+                    <p className="text-base text-white mb-4 font-bold">{product.name} Details</p>
                     <div className="prose prose-invert max-w-none">
                       {product.description?.split('\n').map((line: string, i: number) => (
                         <p key={i} className="mb-4">{line}</p>
@@ -293,8 +293,8 @@ const ProductDetailPage: React.FC = () => {
                       { label: 'Net Weight', value: product.weight ? `${product.weight} kg` : 'N/A' },
                       { label: 'First Flow Date', value: formatDate(product.createdAt) },
                     ].map((row) => (
-                      <div key={row.label} className="flex justify-between items-center py-4 border-b border-white/5">
-                        <span className="text-xs font-black uppercase tracking-widest text-slate-500">{row.label}</span>
+                      <div key={row.label} className="flex justify-between items-center py-3 border-b border-white/5">
+                        <span className="text-xs font-bold uppercase tracking-wide text-slate-500">{row.label}</span>
                         <span className="text-sm font-bold text-white">{row.value}</span>
                       </div>
                     ))}
@@ -302,9 +302,9 @@ const ProductDetailPage: React.FC = () => {
                 )}
 
                 {activeTab === 'reviews' && (
-                  <div className="text-center py-20">
-                    <Sparkles className="w-12 h-12 text-brand-neon mx-auto mb-6 opacity-20" />
-                    <p className="text-xl font-bold text-white mb-2">Community Feedback</p>
+                  <div className="text-center py-14">
+                    <Sparkles className="w-10 h-10 text-brand-neon mx-auto mb-4 opacity-20" />
+                    <p className="text-lg font-bold text-white mb-2">Community Feedback</p>
                     <p>Verified reviews are currently being processed into the flow.</p>
                   </div>
                 )}

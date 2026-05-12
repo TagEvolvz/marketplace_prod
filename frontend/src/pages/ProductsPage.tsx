@@ -176,11 +176,11 @@ const AIResultBanner: React.FC<{ interpretation: string; onClear: () => void }> 
   <motion.div
     initial={{ opacity: 0, y: -20, scale: 0.95 }}
     animate={{ opacity: 1, y: 0, scale: 1 }}
-    className="relative group p-px bg-brand-gradient rounded-3xl mb-12 overflow-hidden shadow-[0_0_30px_rgba(57,255,20,0.15)] hover:shadow-[0_0_50px_rgba(57,255,20,0.3)] transition-shadow duration-500"
+    className="relative group p-px bg-brand-gradient rounded-2xl mb-8 overflow-hidden shadow-sm hover:shadow-md transition-shadow duration-300"
   >
-    <div className="relative bg-white dark:bg-dark-900 rounded-[23px] px-8 py-6 flex items-center gap-6">
-      <div className="w-14 h-14 rounded-2xl bg-brand-primary/10 flex items-center justify-center flex-shrink-0 relative overflow-hidden">
-        <Sparkles className="w-7 h-7 text-brand-primary relative z-10" />
+    <div className="relative bg-white dark:bg-dark-900 rounded-[15px] px-5 py-4 flex items-center gap-4">
+      <div className="w-10 h-10 rounded-xl bg-brand-primary/10 flex items-center justify-center flex-shrink-0 relative overflow-hidden">
+        <Sparkles className="w-5 h-5 text-brand-primary relative z-10" />
         <motion.div
           animate={{ rotate: 360 }}
           transition={{ duration: 8, repeat: Infinity, ease: "linear" }}
@@ -188,11 +188,11 @@ const AIResultBanner: React.FC<{ interpretation: string; onClear: () => void }> 
         />
       </div>
       <div className="flex-1">
-        <p className="text-xs font-black text-brand-primary uppercase tracking-[0.2em] mb-2">Neural Interpretation</p>
-        <p className="text-lg text-slate-600 dark:text-slate-100 font-bold leading-relaxed">"{interpretation}"</p>
+        <p className="text-[11px] font-bold text-brand-primary uppercase tracking-widest mb-1">Neural Interpretation</p>
+        <p className="text-sm text-slate-600 dark:text-slate-100 font-semibold leading-relaxed">"{interpretation}"</p>
       </div>
-      <button onClick={onClear} className="p-3 hover:bg-slate-100 dark:hover:bg-white/5 rounded-2xl transition-colors">
-        <X className="w-6 h-6 text-slate-400" />
+      <button onClick={onClear} className="p-2 hover:bg-slate-100 dark:hover:bg-white/5 rounded-xl transition-colors">
+        <X className="w-5 h-5 text-slate-400" />
       </button>
     </div>
   </motion.div>
@@ -257,7 +257,7 @@ const ProductsPage: React.FC = () => {
   const updateFilter = (f: Partial<Filters>) => { setFilters((p) => ({ ...p, ...f })); setPage(1); };
 
   return (
-    <div className="relative pt-24 pb-20 overflow-hidden min-h-screen">
+    <div className="relative pt-24 pb-16 overflow-hidden min-h-screen">
       {/* ── Dynamic Vibe Orbs ── */}
       <div className="fixed inset-0 pointer-events-none -z-10">
         <motion.div
@@ -290,7 +290,7 @@ const ProductsPage: React.FC = () => {
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 relative z-10">
         {/* Breadcrumbs */}
-        <nav className="flex items-center gap-3 text-[10px] font-black uppercase tracking-[0.3em] text-slate-500 mb-10">
+        <nav className="flex items-center gap-2 text-[10px] font-bold uppercase tracking-widest text-slate-500 mb-6">
           <Link to="/" className="hover:text-brand-primary transition-colors">Home</Link>
           <ChevronRight size={10} className="text-slate-700" />
           <span className="text-slate-300 dark:text-white">Shop</span>
@@ -309,16 +309,16 @@ const ProductsPage: React.FC = () => {
         </nav>
 
         {/* Page Header */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-10 mb-16">
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-10">
           <div>
             <motion.h1
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
-              className="text-5xl md:text-7xl font-black text-slate-900 dark:text-white tracking-tighter mb-4 uppercase"
+              className="text-3xl md:text-5xl font-extrabold text-slate-900 dark:text-white tracking-tight mb-3 uppercase"
             >
               {filters.section ? filters.section : 'Collection'}
             </motion.h1>
-            <p className="text-slate-500 dark:text-slate-400 font-bold tracking-wide">
+            <p className="text-sm text-slate-500 dark:text-slate-400 font-semibold tracking-wide">
               DISCOVER <span className="text-brand-neon">{total}</span> FLOW-SYNTHESIZED ITEMS.
             </p>
           </div>
@@ -331,7 +331,7 @@ const ProductsPage: React.FC = () => {
                   <input
                     type="text" placeholder="Refine results..." value={localSearch}
                     onChange={(e) => setLocalSearch(e.target.value)}
-                    className="bg-white dark:bg-dark-800 border border-slate-200 dark:border-white/5 rounded-2xl py-4 pl-12 pr-4 text-sm font-bold w-full outline-none focus:ring-4 focus:ring-brand-primary/10 transition-all"
+                    className="bg-white dark:bg-dark-800 border border-slate-200 dark:border-white/5 rounded-xl py-2.5 pl-10 pr-3 text-sm font-semibold w-full outline-none focus:ring-4 focus:ring-brand-primary/10 transition-all"
                   />
                 </div>
              </div>
@@ -341,7 +341,7 @@ const ProductsPage: React.FC = () => {
                 <div className="relative">
                   <select
                     value={sort} onChange={(e) => { setSort(e.target.value); setPage(1); }}
-                    className="bg-white dark:bg-dark-800 border border-slate-200 dark:border-white/5 rounded-2xl py-4 pl-6 pr-12 text-sm font-bold appearance-none cursor-pointer outline-none hover:border-brand-primary/30 transition-all"
+                    className="bg-white dark:bg-dark-800 border border-slate-200 dark:border-white/5 rounded-xl py-2.5 pl-4 pr-10 text-sm font-semibold appearance-none cursor-pointer outline-none hover:border-brand-primary/30 transition-all"
                   >
                     {SORT_OPTIONS.map((o) => <option key={o.value} value={o.value}>{o.label}</option>)}
                   </select>
@@ -352,16 +352,16 @@ const ProductsPage: React.FC = () => {
              <motion.button
                whileTap={buttonTap}
                onClick={() => setShowMobileFilter(true)}
-               className="md:hidden flex items-center justify-center p-4 bg-brand-primary/10 text-brand-primary rounded-2xl border border-brand-primary/20"
+               className="md:hidden flex items-center justify-center p-3 bg-brand-primary/10 text-brand-primary rounded-xl border border-brand-primary/20"
              >
                <SlidersHorizontal size={20} />
              </motion.button>
           </div>
         </div>
 
-        <div className="flex gap-12">
+        <div className="flex gap-8">
           {/* Sidebar */}
-          <aside className="hidden md:block w-72 flex-shrink-0">
+          <aside className="hidden md:block w-64 flex-shrink-0">
             <FilterSidebar filters={filters} categories={categories} onChange={updateFilter} onApplyPrice={() => setPage(1)} />
           </aside>
 
@@ -375,13 +375,13 @@ const ProductsPage: React.FC = () => {
             )}
 
             {(isLoading || aiLoading) ? (
-              <div className="grid grid-cols-2 lg:grid-cols-3 gap-8">
+              <div className="grid grid-cols-2 lg:grid-cols-3 gap-5 lg:gap-6">
                 {Array.from({ length: 6 }).map((_, i) => (
                   <motion.div
                     key={i}
                     animate={{ opacity: [0.5, 1, 0.5] }}
                     transition={{ duration: 1.5, repeat: Infinity, delay: i * 0.1 }}
-                    className="aspect-[4/5] rounded-[32px] bg-slate-100 dark:bg-white/5"
+                    className="aspect-[4/5] rounded-2xl bg-slate-100 dark:bg-white/5"
                   />
                 ))}
               </div>
@@ -389,15 +389,15 @@ const ProductsPage: React.FC = () => {
               <motion.div
                 initial={{ opacity: 0, scale: 0.9 }}
                 animate={{ opacity: 1, scale: 1 }}
-                className="text-center py-40 glass rounded-[40px] border border-dashed border-white/10"
+                className="text-center py-24 glass rounded-2xl border border-dashed border-white/10"
               >
-                <Package className="w-20 h-20 text-slate-600 mx-auto mb-8 opacity-20" />
-                <h3 className="text-2xl font-black text-slate-900 dark:text-white mb-4 tracking-tighter uppercase">No items detected</h3>
-                <p className="text-slate-500 mb-10 max-w-sm mx-auto font-medium">The flow is empty for these parameters. Try recalibrating your search sensors.</p>
+                <Package className="w-14 h-14 text-slate-600 mx-auto mb-5 opacity-20" />
+                <h3 className="text-xl font-extrabold text-slate-900 dark:text-white mb-3 tracking-tight uppercase">No items detected</h3>
+                <p className="text-sm text-slate-500 mb-7 max-w-sm mx-auto font-medium">The flow is empty for these parameters. Try recalibrating your search sensors.</p>
                 <motion.button
                   whileTap={buttonTap}
                   onClick={() => updateFilter({ section: '', category: '', subcategory: '', minPrice: '', maxPrice: '' })}
-                  className="btn-outline !rounded-2xl !text-xs !py-4 !px-8 font-black uppercase tracking-widest"
+                  className="btn-outline !rounded-xl !text-xs !py-2.5 !px-5 font-bold uppercase tracking-wide"
                 >
                   Reset Sensors
                 </motion.button>
@@ -406,7 +406,7 @@ const ProductsPage: React.FC = () => {
               <>
                 <motion.div
                   variants={staggerContainer} initial="initial" animate="animate"
-                  className={`grid grid-cols-2 lg:grid-cols-3 gap-8 transition-opacity ${isFetching && !isLoading ? 'opacity-50' : ''}`}
+                  className={`grid grid-cols-2 lg:grid-cols-3 gap-5 lg:gap-6 transition-opacity ${isFetching && !isLoading ? 'opacity-50' : ''}`}
                 >
                   {displayProducts.map((p: any) => (
                     <motion.div key={p._id} variants={staggerItem}>
@@ -417,11 +417,11 @@ const ProductsPage: React.FC = () => {
 
                 {/* Pagination */}
                 {!aiResult && totalPages > 1 && (
-                  <div className="flex items-center justify-center gap-4 mt-20">
+                  <div className="flex items-center justify-center gap-3 mt-12">
                     <motion.button
                       whileTap={buttonTap}
                       disabled={page === 1} onClick={() => setPage(page - 1)}
-                      className="w-14 h-14 rounded-2xl glass border border-white/10 flex items-center justify-center disabled:opacity-10 hover:text-brand-primary hover:border-brand-primary/30 transition-all"
+                      className="w-10 h-10 rounded-xl glass border border-white/10 flex items-center justify-center disabled:opacity-10 hover:text-brand-primary hover:border-brand-primary/30 transition-all"
                     >
                       <ChevronRight size={24} className="rotate-180" />
                     </motion.button>
@@ -431,7 +431,7 @@ const ProductsPage: React.FC = () => {
                          <motion.button
                            whileTap={buttonTap}
                            key={p} onClick={() => setPage(p)}
-                           className={`w-14 h-14 rounded-2xl font-black text-sm transition-all relative overflow-hidden ${
+                         className={`w-10 h-10 rounded-xl font-bold text-sm transition-all relative overflow-hidden ${
                              page === p
                                ? 'bg-brand-primary text-black shadow-[0_0_25px_rgba(57,255,20,0.3)]'
                                : 'glass hover:bg-white/5 text-slate-500 hover:text-white border border-white/10'
@@ -451,7 +451,7 @@ const ProductsPage: React.FC = () => {
                     <motion.button
                       whileTap={buttonTap}
                       disabled={page === totalPages} onClick={() => setPage(page + 1)}
-                      className="w-14 h-14 rounded-2xl glass border border-white/10 flex items-center justify-center disabled:opacity-10 hover:text-brand-primary hover:border-brand-primary/30 transition-all"
+                      className="w-10 h-10 rounded-xl glass border border-white/10 flex items-center justify-center disabled:opacity-10 hover:text-brand-primary hover:border-brand-primary/30 transition-all"
                     >
                       <ChevronRight size={24} />
                     </motion.button>

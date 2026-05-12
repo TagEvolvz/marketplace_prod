@@ -24,7 +24,7 @@ const variantClass: Record<Variant, string> = {
 const sizeClass: Record<Size, string> = {
   sm: 'px-3 py-1.5 text-xs',
   md: '',   // default handled by btn-* classes
-  lg: 'px-8 py-4 text-base',
+  lg: 'px-6 py-3 text-sm',
 };
 
 export const Button: React.FC<ButtonProps> = ({
