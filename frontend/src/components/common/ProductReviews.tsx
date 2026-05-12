@@ -39,7 +39,7 @@ const ProductReviews: React.FC<{ productId: string }> = ({ productId }) => {
 
   const submit = useMutation({
     mutationFn: () => productAPI.createReview(productId, { rating, comment, title }),
-    onSuccess: () => { qc.invalidateQueries(['reviews', productId]); setComment(''); setTitle(''); setRating(5); toast.success('Review submitted'); },
+    onSuccess: () => { qc.invalidateQueries({ queryKey: ['reviews', productId] }); setComment(''); setTitle(''); setRating(5); toast.success('Review submitted'); },
     onError: () => toast.error('Failed to submit review'),
   });
 
@@ -64,8 +64,8 @@ const ProductReviews: React.FC<{ productId: string }> = ({ productId }) => {
               <textarea value={comment} onChange={(e) => setComment(e.target.value)} rows={3}
                 placeholder="Share your experience…" className="input resize-none" />
             </div>
-            <button onClick={() => submit.mutate()} disabled={!comment || submit.isLoading} className="btn-primary py-2.5">
-              {submit.isLoading ? <><Loader2 className="w-4 h-4 animate-spin" /> Submitting…</> : 'Submit Review'}
+            <button onClick={() => submit.mutate()} disabled={!comment || submit.isPending} className="btn-primary py-2.5">
+              {submit.isPending ? <><Loader2 className="w-4 h-4 animate-spin" /> Submitting…</> : 'Submit Review'}
             </button>
           </div>
         </div>

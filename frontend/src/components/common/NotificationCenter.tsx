@@ -31,7 +31,7 @@ const NotificationCenter: React.FC = () => {
 
   const markAll = useMutation({
     mutationFn: () => notificationAPI.markAllAsRead(),
-    onSuccess: () => qc.invalidateQueries(['notifications']),
+    onSuccess: () => qc.invalidateQueries({ queryKey: ['notifications'] }),
   });
 
   useEffect(() => {

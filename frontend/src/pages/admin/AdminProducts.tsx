@@ -302,7 +302,7 @@ const AdminProducts: React.FC = () => {
 
   const deleteMutation = useMutation({
     mutationFn: (id: string) => productAPI.deleteProduct(id),
-    onSuccess: () => { qc.invalidateQueries(['admin-products']); toast.success('Product deleted'); },
+    onSuccess: () => { qc.invalidateQueries({ queryKey: ['admin-products'] }); toast.success('Product deleted'); },
     onError: () => toast.error('Failed to delete'),
   });
 
@@ -406,9 +406,9 @@ const AdminProducts: React.FC = () => {
                     <Edit3 className="w-3.5 h-3.5" /> Edit
                   </motion.button>
                   <motion.button onClick={() => window.confirm('Delete this product?') && deleteMutation.mutate(product._id)}
-                    disabled={deleteMutation.isLoading} whileTap={buttonTap}
+                    disabled={deleteMutation.isPending} whileTap={buttonTap}
                     className="flex-1 bg-red-50 hover:bg-red-100 text-red-600 border border-red-200 rounded-lg text-[12px] font-semibold flex items-center justify-center gap-1.5 py-1.5 transition-colors disabled:opacity-50">
-                    {deleteMutation.isLoading ? <Loader2 className="w-3.5 h-3.5 animate-spin" /> : <Trash2 className="w-3.5 h-3.5" />}
+                    {deleteMutation.isPending ? <Loader2 className="w-3.5 h-3.5 animate-spin" /> : <Trash2 className="w-3.5 h-3.5" />}
                     Delete
                   </motion.button>
                 </div>
@@ -422,7 +422,7 @@ const AdminProducts: React.FC = () => {
         {showForm && (
           <ProductForm product={editProduct}
             onClose={() => { setShowForm(false); setEditProduct(null); }}
-            onSuccess={() => qc.invalidateQueries(['admin-products'])} />
+            onSuccess={() => qc.invalidateQueries({ queryKey: ['admin-products'] })} />
         )}
       </AnimatePresence>
     </div>

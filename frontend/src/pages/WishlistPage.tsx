@@ -13,7 +13,7 @@ const WishlistPage: React.FC = () => {
   const dispatch = useAppDispatch();
   const { data, isLoading } = useQuery({
     queryKey: ['wishlist'],
-    queryFn: () => authAPI.getWishlist().then((r) => r.data.data),
+    queryFn: () => authAPI.getWishlist().then((r: any) => r.data.data),
   });
   const items = data || [];
 

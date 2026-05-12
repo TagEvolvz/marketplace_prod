@@ -18,7 +18,7 @@ const AdminUsers: React.FC = () => {
 
   const toggleMutation = useMutation({
     mutationFn: (userId: string) => adminAPI.toggleUserStatus(userId),
-    onSuccess: () => { qc.invalidateQueries(['admin-users']); toast.success('User status updated'); },
+    onSuccess: () => { qc.invalidateQueries({ queryKey: ['admin-users'] }); toast.success('User status updated'); },
     onError:   () => toast.error('Failed to update user'),
   });
 
@@ -82,7 +82,7 @@ const AdminUsers: React.FC = () => {
                 </span>
                 <motion.button
                   onClick={() => toggleMutation.mutate(user._id)}
-                  disabled={toggleMutation.isLoading}
+                  disabled={toggleMutation.isPending}
                   whileTap={buttonTap}
                   title={user.isActive ? 'Disable account' : 'Enable account'}
                   className={`p-2 rounded-lg border transition-colors ${

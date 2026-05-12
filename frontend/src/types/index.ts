@@ -25,6 +25,13 @@ export interface User {
   updatedAt: string;
 }
 
+export interface AuthState {
+  user: User | null;
+  accessToken: string | null;
+  isAuthenticated: boolean;
+  isLoading: boolean;
+}
+
 // ─── Address ──────────────────────────────────────────────────────────────────
 export interface Address {
   street: string;
@@ -90,6 +97,7 @@ export interface Product {
   tags: string[];
   images: ProductImage[];
   variants: ProductVariant[];
+  weight?: number;
   rating: number;
   totalRatings: number;
   totalSold: number;

@@ -53,7 +53,7 @@ const OrderDetailPage: React.FC = () => {
       const fd = new FormData();
       fd.append('proof', proofFile);
       await orderAPI.uploadPaymentProof(order._id, fd);
-      qc.invalidateQueries(['order', orderNumber]);
+      qc.invalidateQueries({ queryKey: ['order', orderNumber] });
       toast.success('Payment proof uploaded');
       setProofFile(null);
       setProofPreview(null);

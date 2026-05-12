@@ -236,7 +236,7 @@ const ProductsPage: React.FC = () => {
   });
   const categories: any[] = catData?.data || catData || [];
 
-  const { data, isLoading, isPreviousData } = useQuery({
+  const { data, isLoading, isFetching } = useQuery<any>({
     queryKey: ['products', filters, sort, page, debouncedSearch],
     queryFn: () => productAPI.getProducts({
       storeSection: filters.section || undefined,
@@ -246,7 +246,7 @@ const ProductsPage: React.FC = () => {
       search: debouncedSearch || undefined,
       sort: sortField, order: sortOrder, page, limit: 12,
     }).then((r) => r.data.data),
-    keepPreviousData: true,
+    placeholderData: (previousData: any) => previousData,
     enabled: !aiResult,
   });
 
@@ -406,7 +406,7 @@ const ProductsPage: React.FC = () => {
               <>
                 <motion.div
                   variants={staggerContainer} initial="initial" animate="animate"
-                  className={`grid grid-cols-2 lg:grid-cols-3 gap-8 transition-opacity ${isPreviousData ? 'opacity-50' : ''}`}
+                  className={`grid grid-cols-2 lg:grid-cols-3 gap-8 transition-opacity ${isFetching && !isLoading ? 'opacity-50' : ''}`}
                 >
                   {displayProducts.map((p: any) => (
                     <motion.div key={p._id} variants={staggerItem}>

@@ -26,9 +26,10 @@ export const timeAgo = (date: string | Date): string => {
 export const getOrderStatusColor = (status: OrderStatus): string => {
   const map: Record<OrderStatus, string> = {
     pending:    'text-amber-700  bg-amber-50   border border-amber-200',
-    confirmed:  'text-blue-700   bg-blue-50    border border-blue-200',
+    awaiting_payment: 'text-amber-700 bg-amber-50 border border-amber-200',
+    paid:       'text-blue-700   bg-blue-50    border border-blue-200',
     processing: 'text-indigo-700 bg-indigo-50  border border-indigo-200',
-    shipped:    'text-violet-700 bg-violet-50  border border-violet-200',
+    out_for_delivery: 'text-violet-700 bg-violet-50 border border-violet-200',
     delivered:  'text-emerald-700 bg-emerald-50 border border-emerald-200',
     cancelled:  'text-red-700    bg-red-50     border border-red-200',
     refunded:   'text-slate-600  bg-slate-100  border border-slate-200',

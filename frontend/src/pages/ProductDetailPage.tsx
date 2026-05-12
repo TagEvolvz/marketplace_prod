@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
-import { Star, ShoppingCart, Heart, Truck, Shield, RefreshCw, Minus, Plus, ChevronRight, Package, Pill, Sparkles } from 'lucide-react';
+import { Star, ShoppingCart, Heart, Truck, Shield, RefreshCw, Minus, Plus, ChevronRight, Package, Pill, Sparkles, Check, Loader2 } from 'lucide-react';
 import { productAPI, cartAPI } from '../services/api';
 import { useAppDispatch, useAppSelector } from '../store';
 import { setCart } from '../store/slices/cartSlice';
@@ -111,7 +111,7 @@ const ProductDetailPage: React.FC = () => {
 
             {product.images?.length > 1 && (
               <div className="flex gap-4 overflow-x-auto pb-4 scrollbar-thin">
-                {product.images.map((img, i) => (
+                {product.images.map((img: { url: string }, i: number) => (
                   <button
                     key={i}
                     onClick={() => setActiveImg(i)}
@@ -277,7 +277,7 @@ const ProductDetailPage: React.FC = () => {
                   <div className="max-w-4xl">
                     <p className="text-lg text-white mb-6 font-bold">{product.name} Details</p>
                     <div className="prose prose-invert max-w-none">
-                      {product.description?.split('\n').map((line, i) => (
+                      {product.description?.split('\n').map((line: string, i: number) => (
                         <p key={i} className="mb-4">{line}</p>
                       ))}
                     </div>

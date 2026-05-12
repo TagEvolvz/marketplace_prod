@@ -51,5 +51,9 @@
     "lint": "eslint src --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "type-check": "tsc --noEmit"
   },
+  "engines": {
+    "node": "20.x",
+    "npm": ">=9.0.0"
+  },
   "type": "module"
 }

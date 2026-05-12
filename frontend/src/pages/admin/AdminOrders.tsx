@@ -182,10 +182,10 @@ const AdminOrders: React.FC = () => {
                   {needsAction && (
                     <motion.button
                       onClick={() => confirmMutation.mutate(order._id)}
-                      disabled={confirmMutation.isLoading}
+                      disabled={confirmMutation.isPending}
                       className="flex items-center gap-1.5 px-3 py-1.5 bg-slate-900 hover:bg-slate-800 text-white rounded-lg text-[12px] font-semibold transition-colors disabled:opacity-60"
                       whileTap={buttonTap}>
-                      {confirmMutation.isLoading ? <Loader2 className="w-3.5 h-3.5 animate-spin" /> : <CheckCircle className="w-3.5 h-3.5" />}
+                      {confirmMutation.isPending ? <Loader2 className="w-3.5 h-3.5 animate-spin" /> : <CheckCircle className="w-3.5 h-3.5" />}
                       Confirm
                     </motion.button>
                   )}
@@ -248,7 +248,7 @@ const AdminOrders: React.FC = () => {
             orderNumber={rejectTarget.number}
             onClose={() => setRejectTarget(null)}
             onConfirm={(reason) => rejectMutation.mutate({ orderId: rejectTarget.id, reason })}
-            loading={rejectMutation.isLoading}
+            loading={rejectMutation.isPending}
           />
         )}
       </AnimatePresence>

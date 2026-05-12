@@ -95,6 +95,7 @@ export const authAPI = {
   resetPassword: (data: object) => api.post('/auth/reset-password', data),
   verifyEmail: (token: string, email: string) => api.get(`/auth/verify-email?token=${token}&email=${email}`),
   toggleWishlist: (productId: string) => api.post(`/auth/wishlist/${productId}`),
+  getWishlist: () => api.get('/auth/wishlist'),
 };
 
 export const productAPI = {
@@ -109,6 +110,7 @@ export const productAPI = {
   deleteProduct: (id: string) => api.delete(`/admin/products/${id}`),
   getLowStock: () => api.get('/products/low-stock'),
   getProductReviews: (productId: string, params?: object) => api.get(`/products/${productId}/reviews`, { params }),
+  createReview: (productId: string, data: object) => api.post(`/products/${productId}/reviews`, data),
 };
 
 export const categoryAPI = {
@@ -127,7 +129,7 @@ export const cartAPI = {
 export const orderAPI = {
   getBankDetails: () => api.get('/orders/bank-details'),
   uploadPaymentProof: (orderId: string, formData: FormData) =>
-    api.post(`/orders/my-orders/${orderId}/upload-proof`, formData, {
+    api.post(`/orders/${orderId}/upload-proof`, formData, {
       headers: { 'Content-Type': 'multipart/form-data' },
     }),
   createCheckout: (data: object) => api.post('/orders/checkout', data),

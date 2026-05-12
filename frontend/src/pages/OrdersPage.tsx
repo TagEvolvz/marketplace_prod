@@ -127,7 +127,7 @@ const OrdersPage: React.FC = () => {
 
                   {/* Price + action */}
                   <div className="flex flex-col items-end gap-2 flex-shrink-0">
-                    <span className="text-[15px] font-bold text-slate-900">{formatCurrency(order.totalAmount)}</span>
+                    <span className="text-[15px] font-bold text-slate-900">{formatCurrency(order.total)}</span>
                     <Link to={`/orders/${order.orderNumber}`}
                       className="text-[12px] font-semibold text-green-600 hover:text-green-700 border border-green-200 hover:border-green-400 px-3 py-1.5 rounded-lg transition-colors flex items-center gap-1">
                       View Details <ChevronRight className="w-3.5 h-3.5" />
