@@ -16,7 +16,7 @@ const schema = z.object({
 type FormData = z.infer<typeof schema>;
 
 const AuthLayout: React.FC<{ children: React.ReactNode; title: string; subtitle: string }> = ({ children, title, subtitle }) => (
-  <div className="min-h-screen bg-slate-50 flex">
+  <div className="auth-surface min-h-screen bg-slate-50 text-slate-900 flex">
     {/* Left panel: simplified brand panel (no marketplace marketing) */}
     <div className="hidden lg:flex w-5/12 bg-slate-900 relative overflow-hidden flex-col items-center justify-center p-12">
       <div className="relative text-center">

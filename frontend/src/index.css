@@ -82,6 +82,14 @@
   .dark .label { @apply text-slate-200; }
   .label-required::after { content: ' *'; color: #f87171; margin-left: 0.25rem; }
 
+  /* Auth pages use a fixed light surface even when the app theme is dark. */
+  .auth-surface .input {
+    @apply bg-white border-slate-200 text-slate-900 placeholder-slate-400;
+  }
+  .auth-surface .label {
+    @apply text-slate-700;
+  }
+
   /* Section Title */
   .section-title {
     @apply font-display text-4xl md:text-5xl font-black tracking-tighter text-white mb-10 uppercase;
