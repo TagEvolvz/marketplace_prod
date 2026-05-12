@@ -9,6 +9,8 @@ interface EmailOptions {
 }
 
 const createTransporter = () => {
+  // If SMTP credentials are not provided, return null and let callers skip sending
+  if (!process.env.SMTP_USER || !process.env.SMTP_PASS) return null as unknown as nodemailer.Transporter;
   return nodemailer.createTransport({
     host: process.env.SMTP_HOST || 'smtp.gmail.com',
     port: parseInt(process.env.SMTP_PORT || '587'),
@@ -23,6 +25,10 @@ const createTransporter = () => {
 export const sendEmail = async (options: EmailOptions): Promise<void> => {
   try {
     const transporter = createTransporter();
+    if (!transporter) {
+      logger.warn('SMTP not configured — skipping outgoing email', { to: options.to, subject: options.subject });
+      return;
+    }
     await transporter.sendMail({
       from: `"${process.env.EMAIL_FROM_NAME || 'Marketplace'}" <${process.env.EMAIL_FROM}>`,
       to: options.to,
@@ -32,8 +38,9 @@ export const sendEmail = async (options: EmailOptions): Promise<void> => {
     });
     logger.info(`Email sent to ${options.to}: ${options.subject}`);
   } catch (error) {
-    logger.error('Failed to send email:', error);
-    throw error;
+    logger.error('Failed to send email (non-fatal):', error);
+    // Don't rethrow — emails are non-fatal for app operation
+    return;
   }
 };
 

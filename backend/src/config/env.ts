@@ -25,16 +25,16 @@ const envSchema = z.object({
   FRONTEND_URL: z.string().default('http://localhost:3000'),
   ADMIN_FRONTEND_URL: z.string().optional(),
 
-  // Cloudinary — required for image uploads
-  CLOUDINARY_CLOUD_NAME: z.string().min(1, 'CLOUDINARY_CLOUD_NAME is required'),
-  CLOUDINARY_API_KEY: z.string().min(1, 'CLOUDINARY_API_KEY is required'),
-  CLOUDINARY_API_SECRET: z.string().min(1, 'CLOUDINARY_API_SECRET is required'),
+  // Cloudinary — optional. When absent, uploads fall back to local disk storage.
+  CLOUDINARY_CLOUD_NAME: z.string().optional(),
+  CLOUDINARY_API_KEY: z.string().optional(),
+  CLOUDINARY_API_SECRET: z.string().optional(),
 
-  // Email — required for account verification
-  SMTP_HOST: z.string().min(1, 'SMTP_HOST is required'),
+  // Email — optional. When absent outgoing email is a no-op (logged).
+  SMTP_HOST: z.string().optional(),
   SMTP_PORT: z.coerce.number().int().default(587),
-  SMTP_USER: z.string().min(1, 'SMTP_USER is required'),
-  SMTP_PASS: z.string().min(1, 'SMTP_PASS is required'),
+  SMTP_USER: z.string().optional(),
+  SMTP_PASS: z.string().optional(),
   EMAIL_FROM: z.string().default('noreply@store.com'),
   EMAIL_FROM_NAME: z.string().default('Store'),
 

@@ -7,13 +7,17 @@ WORKDIR /app
 RUN apk add --no-cache python3 make g++
 
 COPY package*.json ./
-RUN npm ci --only=production && npm cache clean --force
+# Install ALL dependencies for the build (devDeps required to compile TS)
+RUN npm ci && npm cache clean --force
 
 COPY tsconfig.json ./
 COPY src ./src
 
 # Build TypeScript
 RUN npm run build
+
+# Remove devDependencies to keep the final image lean
+RUN npm prune --production
 
 # ── Stage 2: Production ────────────────────────────────────────────────────────
 FROM node:20-alpine AS production

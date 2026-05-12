@@ -33,6 +33,7 @@ import { errorHandler, notFoundHandler, generalLimiter } from './middleware/inde
 import { requestId } from './middleware/requestId';
 import logger from './utils/logger';
 import { env } from './config/env';
+import path from 'path';
 
 // Ensure uncaught errors are visible in the console for easier debugging
 process.on('uncaughtException', (err) => {
@@ -150,3 +151,18 @@ if (env.NODE_ENV !== 'test') {
 }
 
 export default app;
+
+// Serve uploaded files when Cloudinary is not configured
+try {
+  const uploadsDir = path.join(process.cwd(), 'uploads');
+  // only add static route if folder exists or in development
+  app.use('/uploads', (req, res, next) => { next(); });
+  if (!app.get('uploads-static-added')) {
+    // Attach static middleware - Express will serve files if present
+    // Use a safe wrapper to avoid crashing if folder is missing
+    try {
+      app.use('/uploads', require('express').static(uploadsDir));
+      app.set('uploads-static-added', true);
+    } catch {}
+  }
+} catch {}
