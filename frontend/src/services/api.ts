@@ -41,8 +41,13 @@ api.interceptors.response.use(
   (response) => response,
   async (error: AxiosError) => {
     const originalRequest = error.config as InternalAxiosRequestConfig & { _retry?: boolean };
+    const requestUrl = originalRequest?.url || '';
+    const authState = store.getState().auth;
+    const hasActiveSession = Boolean(authState.accessToken || authState.isAuthenticated);
+    const isAuthEndpoint = requestUrl.includes('/auth/');
+    const canAttemptRefresh = !isAuthEndpoint || requestUrl.includes('/auth/me');
 
-    if (error.response?.status === 401 && !originalRequest._retry) {
+    if (error.response?.status === 401 && !originalRequest._retry && canAttemptRefresh) {
       if (isRefreshing) {
         return new Promise((resolve, reject) => {
           failedQueue.push({ resolve, reject });
@@ -68,9 +73,11 @@ api.interceptors.response.use(
         return api(originalRequest);
       } catch (refreshError) {
         processQueue(refreshError as Error, null);
-        store.dispatch(logout());
-        toast.error('Session expired. Please login again.');
-        window.location.href = '/auth/login';
+        if (hasActiveSession) {
+          store.dispatch(logout());
+          toast.error('Session expired. Please login again.');
+          window.location.assign('/auth/login');
+        }
         return Promise.reject(refreshError);
       } finally {
         isRefreshing = false;

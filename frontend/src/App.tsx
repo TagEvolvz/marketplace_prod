@@ -1,5 +1,5 @@
-import React, { Suspense, lazy, useEffect, useState } from 'react';
-import { Routes, Route, useLocation, Navigate, useNavigate } from 'react-router-dom';
+import React, { Suspense, lazy, useEffect, useRef, useState } from 'react';
+import { Routes, Route, useLocation, Navigate } from 'react-router-dom';
 import { AnimatePresence, motion } from 'framer-motion';
 import { useAppDispatch, useAppSelector } from './store';
 import { restoreSession } from './store/slices/authSlice';
@@ -41,27 +41,16 @@ const AnimatedPage: React.FC<{ children: React.ReactNode }> = ({ children }) => 
 
 const AppInner: React.FC = () => {
   const dispatch = useAppDispatch();
-  const { isLoading, isAuthenticated } = useAppSelector((s) => s.auth);
+  const { isLoading } = useAppSelector((s) => s.auth);
   const location = useLocation();
-  const navigate = useNavigate();
   const [showSplash, setShowSplash] = useState(true);
+  const didRestoreSession = useRef(false);
 
   useEffect(() => {
-    if (!location.pathname.startsWith('/auth')) {
-      dispatch(restoreSession());
-    }
-  }, [dispatch, location.pathname]);
-
-  useEffect(() => {
-    if (!isLoading) return;
-    if (location.pathname.startsWith('/auth')) return;
-    if (isAuthenticated) return;
-
-    const t = setTimeout(() => {
-      navigate('/auth/login', { replace: true });
-    }, 5000);
-    return () => clearTimeout(t);
-  }, [isLoading, location.pathname, isAuthenticated, navigate]);
+    if (didRestoreSession.current) return;
+    didRestoreSession.current = true;
+    dispatch(restoreSession());
+  }, [dispatch]);
 
   if (showSplash) {
     return <SplashScreen onFinish={() => setShowSplash(false)} />;
