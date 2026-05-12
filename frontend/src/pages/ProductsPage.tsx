@@ -49,15 +49,15 @@ const FilterSidebar: React.FC<{
   return (
     <div className="space-y-6">
       {/* Store Section */}
-      <div className="bg-white/5 dark:bg-dark-800/50 border border-slate-100 dark:border-white/5 rounded-2xl overflow-hidden shadow-sm">
-        <div className="px-5 py-4 border-b border-slate-100 dark:border-white/5 bg-slate-50/50 dark:bg-white/[0.02]">
+      <div className="surface overflow-hidden rounded-2xl">
+        <div className="border-b border-slate-200/80 bg-slate-50/70 px-5 py-4 dark:border-white/10 dark:bg-white/[0.03]">
           <h3 className="text-[11px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest">Store Section</h3>
         </div>
         <div className="p-2">
           {[
             { value: '', label: 'All Sections', icon: <Package className="w-4 h-4" /> },
             { value: 'pharmacy', label: 'Pharmacy', icon: <Pill className="w-4 h-4 text-blue-400" /> },
-            { value: 'supermarket', label: 'Supermarket', icon: <ShoppingBag className="w-4 h-4 text-brand-neon" /> },
+            { value: 'supermarket', label: 'Supermarket', icon: <ShoppingBag className="w-4 h-4 text-brand-primary" /> },
             { value: 'cosmetics', label: 'Cosmetics', icon: <Sparkles className="w-4 h-4 text-rose-400" /> },
           ].map((s) => (
             <button
@@ -65,7 +65,7 @@ const FilterSidebar: React.FC<{
               onClick={() => onChange({ section: s.value, category: '', subcategory: '' })}
               className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-bold transition-all relative overflow-hidden group ${
                 filters.section === s.value
-                  ? 'bg-brand-primary/10 text-brand-primary'
+                  ? 'bg-brand-primary/10 text-brand-dark dark:text-brand-primary'
                   : 'text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-white/5'
               }`}
             >
@@ -86,7 +86,7 @@ const FilterSidebar: React.FC<{
               {filters.section === s.value && (
                 <motion.div
                   layoutId="active-dot"
-                  className="w-1.5 h-1.5 rounded-full bg-brand-neon ml-auto shadow-[0_0_12px_#39FF14]"
+                  className="ml-auto h-1.5 w-1.5 rounded-full bg-brand-primary"
                 />
               )}
             </button>
@@ -96,8 +96,8 @@ const FilterSidebar: React.FC<{
 
       {/* Categories */}
       {parentCats.length > 0 && (
-        <div className="bg-white/5 dark:bg-dark-800/50 border border-slate-100 dark:border-white/5 rounded-2xl overflow-hidden shadow-sm">
-          <div className="px-5 py-4 border-b border-slate-100 dark:border-white/5 bg-slate-50/50 dark:bg-white/[0.02]">
+        <div className="surface overflow-hidden rounded-2xl">
+          <div className="border-b border-slate-200/80 bg-slate-50/70 px-5 py-4 dark:border-white/10 dark:bg-white/[0.03]">
             <h3 className="text-[11px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest">Categories</h3>
           </div>
           <div className="p-2 max-h-64 overflow-y-auto scrollbar-thin">
@@ -125,10 +125,10 @@ const FilterSidebar: React.FC<{
                     key={sub._id}
                     onClick={() => onChange({ subcategory: sub._id })}
                     className={`w-full flex items-center gap-3 pl-10 pr-4 py-2.5 rounded-xl text-xs font-bold transition-all ${
-                      filters.subcategory === sub._id ? 'text-brand-neon' : 'text-slate-500 hover:text-slate-300'
+                    filters.subcategory === sub._id ? 'text-brand-dark dark:text-brand-primary' : 'text-slate-500 hover:text-slate-800 dark:hover:text-slate-300'
                     }`}
                   >
-                    <div className={`w-1 h-1 rounded-full ${filters.subcategory === sub._id ? 'bg-brand-neon shadow-[0_0_8px_#39FF14]' : 'bg-slate-600'}`} />
+                    <div className={`h-1 w-1 rounded-full ${filters.subcategory === sub._id ? 'bg-brand-primary' : 'bg-slate-300 dark:bg-slate-600'}`} />
                     {sub.name}
                   </button>
                 ))}
@@ -139,7 +139,7 @@ const FilterSidebar: React.FC<{
       )}
 
       {/* Price Range */}
-      <div className="bg-white/5 dark:bg-dark-800/50 border border-slate-100 dark:border-white/5 rounded-2xl p-5 shadow-sm">
+      <div className="surface rounded-2xl p-5">
         <h3 className="text-[11px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest mb-4">Price Range</h3>
         <div className="space-y-4">
           <div className="grid grid-cols-2 gap-3">
@@ -147,23 +147,22 @@ const FilterSidebar: React.FC<{
               <span className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 text-[10px]">$</span>
               <input
                 type="number" placeholder="Min" value={localMin} onChange={(e) => setLocalMin(e.target.value)}
-                className="w-full bg-slate-100 dark:bg-white/5 border-none rounded-xl py-2 pl-6 pr-2 text-xs font-bold outline-none focus:ring-2 focus:ring-brand-primary/20"
+                className="w-full rounded-xl border border-slate-200 bg-white py-2 pl-6 pr-2 text-xs font-bold outline-none focus:ring-2 focus:ring-brand-primary/20 dark:border-white/10 dark:bg-white/5"
               />
             </div>
             <div className="relative">
               <span className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 text-[10px]">$</span>
               <input
                 type="number" placeholder="Max" value={localMax} onChange={(e) => setLocalMax(e.target.value)}
-                className="w-full bg-slate-100 dark:bg-white/5 border-none rounded-xl py-2 pl-6 pr-2 text-xs font-bold outline-none focus:ring-2 focus:ring-brand-primary/20"
+                className="w-full rounded-xl border border-slate-200 bg-white py-2 pl-6 pr-2 text-xs font-bold outline-none focus:ring-2 focus:ring-brand-primary/20 dark:border-white/10 dark:bg-white/5"
               />
             </div>
           </div>
           <button
             onClick={() => { onChange({ minPrice: localMin, maxPrice: localMax }); onApplyPrice(); }}
-            className="w-full btn-primary !py-2.5 !rounded-xl !text-xs group relative overflow-hidden"
+            className="btn-primary w-full !h-10 text-xs"
           >
             <span className="relative z-10">Apply Range</span>
-            <div className="absolute inset-0 bg-white/20 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-500" />
           </button>
         </div>
       </div>
@@ -176,23 +175,23 @@ const AIResultBanner: React.FC<{ interpretation: string; onClear: () => void }> 
   <motion.div
     initial={{ opacity: 0, y: -20, scale: 0.95 }}
     animate={{ opacity: 1, y: 0, scale: 1 }}
-    className="relative group p-px bg-brand-gradient rounded-2xl mb-8 overflow-hidden shadow-sm hover:shadow-md transition-shadow duration-300"
+    className="mb-8 overflow-hidden rounded-2xl border border-brand-primary/20 bg-brand-primary/10 shadow-soft"
   >
-    <div className="relative bg-white dark:bg-dark-900 rounded-[15px] px-5 py-4 flex items-center gap-4">
+    <div className="relative flex items-center gap-4 rounded-2xl bg-white/90 px-5 py-4 dark:bg-slate-900/90">
       <div className="w-10 h-10 rounded-xl bg-brand-primary/10 flex items-center justify-center flex-shrink-0 relative overflow-hidden">
         <Sparkles className="w-5 h-5 text-brand-primary relative z-10" />
         <motion.div
           animate={{ rotate: 360 }}
           transition={{ duration: 8, repeat: Infinity, ease: "linear" }}
-          className="absolute inset-0 bg-gradient-to-tr from-brand-neon/20 to-transparent"
+          className="absolute inset-0 bg-gradient-to-tr from-brand-primary/20 to-transparent"
         />
       </div>
       <div className="flex-1">
-        <p className="text-[11px] font-bold text-brand-primary uppercase tracking-widest mb-1">Neural Interpretation</p>
-        <p className="text-sm text-slate-600 dark:text-slate-100 font-semibold leading-relaxed">"{interpretation}"</p>
+        <p className="mb-1 text-[11px] font-bold uppercase tracking-widest text-brand-dark dark:text-brand-primary">Smart Search</p>
+        <p className="text-sm font-semibold leading-relaxed text-slate-600 dark:text-slate-100">"{interpretation}"</p>
       </div>
       <button onClick={onClear} className="p-2 hover:bg-slate-100 dark:hover:bg-white/5 rounded-xl transition-colors">
-        <X className="w-5 h-5 text-slate-400" />
+        <X className="h-5 w-5 text-slate-400" />
       </button>
     </div>
   </motion.div>
@@ -419,7 +418,7 @@ const ProductsPage: React.FC = () => {
                     <motion.button
                       whileTap={buttonTap}
                       disabled={page === 1} onClick={() => setPage(page - 1)}
-                      className="w-10 h-10 rounded-xl glass border border-white/10 flex items-center justify-center disabled:opacity-10 hover:text-brand-primary hover:border-brand-primary/30 transition-all"
+                      className="flex h-10 w-10 items-center justify-center rounded-xl border border-slate-200 bg-white text-slate-600 shadow-sm transition-all hover:border-brand-primary/30 hover:text-brand-dark disabled:opacity-30 dark:border-white/10 dark:bg-white/5 dark:text-slate-300"
                     >
                       <ChevronRight size={24} className="rotate-180" />
                     </motion.button>
@@ -431,15 +430,15 @@ const ProductsPage: React.FC = () => {
                            key={p} onClick={() => setPage(p)}
                          className={`w-10 h-10 rounded-xl font-bold text-sm transition-all relative overflow-hidden ${
                              page === p
-                               ? 'bg-brand-primary text-black shadow-[0_0_25px_rgba(57,255,20,0.3)]'
-                               : 'glass hover:bg-white/5 text-slate-500 hover:text-white border border-white/10'
+                               ? 'bg-brand-primary text-slate-950 shadow-soft'
+                               : 'border border-slate-200 bg-white text-slate-500 shadow-sm hover:text-slate-950 dark:border-white/10 dark:bg-white/5 dark:hover:text-white'
                            }`}
                          >
                            <span className="relative z-10">{p}</span>
                            {page === p && (
                              <motion.div
                                layoutId="pagination-glow"
-                               className="absolute inset-0 bg-white/20 blur-sm"
+                               className="absolute inset-0 bg-white/20"
                              />
                            )}
                          </motion.button>
@@ -449,7 +448,7 @@ const ProductsPage: React.FC = () => {
                     <motion.button
                       whileTap={buttonTap}
                       disabled={page === totalPages} onClick={() => setPage(page + 1)}
-                      className="w-10 h-10 rounded-xl glass border border-white/10 flex items-center justify-center disabled:opacity-10 hover:text-brand-primary hover:border-brand-primary/30 transition-all"
+                      className="flex h-10 w-10 items-center justify-center rounded-xl border border-slate-200 bg-white text-slate-600 shadow-sm transition-all hover:border-brand-primary/30 hover:text-brand-dark disabled:opacity-30 dark:border-white/10 dark:bg-white/5 dark:text-slate-300"
                     >
                       <ChevronRight size={24} />
                     </motion.button>
@@ -468,14 +467,14 @@ const ProductsPage: React.FC = () => {
             initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
             className="fixed inset-0 z-[100] md:hidden"
           >
-            <div className="absolute inset-0 bg-black/80 backdrop-blur-xl" onClick={() => setShowMobileFilter(false)} />
+            <div className="absolute inset-0 bg-slate-950/70 backdrop-blur-xl" onClick={() => setShowMobileFilter(false)} />
             <motion.div
               initial={{ x: '100%' }} animate={{ x: 0 }} exit={{ x: '100%' }}
               transition={{ type: 'spring', damping: 25, stiffness: 200 }}
-              className="absolute right-0 top-0 bottom-0 w-80 bg-white dark:bg-dark-900 shadow-2xl overflow-y-auto p-8 border-l border-white/5"
+              className="absolute bottom-0 right-0 top-0 w-80 overflow-y-auto border-l border-slate-200 bg-white p-8 shadow-2xl dark:border-white/10 dark:bg-slate-950"
             >
               <div className="flex items-center justify-between mb-10">
-                <h3 className="text-2xl font-black uppercase tracking-tighter">FILTERS</h3>
+                <h3 className="text-2xl font-black tracking-tight">Filters</h3>
                 <motion.button
                   whileTap={buttonTap}
                   onClick={() => setShowMobileFilter(false)}

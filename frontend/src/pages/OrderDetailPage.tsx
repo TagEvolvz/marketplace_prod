@@ -61,10 +61,10 @@ const OrderDetailPage: React.FC = () => {
     finally { setUploading(false); }
   };
 
-  if (isLoading) return <div className="max-w-3xl mx-auto px-4 py-8"><div className="skeleton h-96 rounded-xl" /></div>;
+  if (isLoading) return <div className="page-container pt-28 pb-16"><div className="skeleton mx-auto h-96 max-w-3xl" /></div>;
 
   if (!order) return (
-    <div className="max-w-3xl mx-auto px-4 py-20 text-center">
+    <div className="page-container pt-28 pb-20 text-center">
       <p className="text-slate-500 mb-4">Order not found.</p>
       <Link to="/orders" className="btn-primary inline-flex">My Orders</Link>
     </div>
@@ -75,16 +75,18 @@ const OrderDetailPage: React.FC = () => {
 
   return (
     <motion.div variants={pageVariants} initial="initial" animate="animate"
-      className="max-w-3xl mx-auto px-4 sm:px-6 py-8">
-      <Link to="/orders" className="inline-flex items-center gap-1.5 text-[13px] text-slate-500 hover:text-green-600 mb-6 transition-colors">
+      className="page-container pt-28 pb-16">
+      <div className="mx-auto max-w-3xl">
+      <Link to="/orders" className="mb-6 inline-flex items-center gap-1.5 text-[13px] font-semibold text-slate-500 transition-colors hover:text-brand-dark">
         <ArrowLeft className="w-4 h-4" /> Back to Orders
       </Link>
 
       {/* Header */}
       <div className="flex items-start justify-between gap-4 mb-6 flex-wrap">
         <div>
-          <h1 className="text-[19px] font-extrabold text-slate-900">{order.orderNumber}</h1>
-          <p className="text-[12px] text-slate-500 mt-0.5">Placed {formatDate(order.createdAt)}</p>
+          <p className="eyebrow mb-2">Order details</p>
+          <h1 className="heading-1">{order.orderNumber}</h1>
+          <p className="mt-2 text-sm text-slate-500">Placed {formatDate(order.createdAt)}</p>
         </div>
         <span className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-[12px] font-semibold border ${ORDER_STATUS_STYLES[order.status] || ORDER_STATUS_STYLES.pending}`}>
           {order.status.charAt(0).toUpperCase() + order.status.slice(1)}
@@ -95,7 +97,8 @@ const OrderDetailPage: React.FC = () => {
         {/* Payment status banner */}
         {order.paymentMethod === 'manual' && (
           <motion.div variants={staggerItem}
-            className={`flex items-center gap-3 p-4 rounded-xl border ${paymentStatusInfo.cls}`}>
+            className={`rounded-2xl border p-4 shadow-soft ${paymentStatusInfo.cls}`}>
+            <div className="flex items-center gap-3">
             <div className="flex-shrink-0">{paymentStatusInfo.icon}</div>
             <div className="flex-1">
               <p className="text-[13px] font-bold">Payment: {paymentStatusInfo.label}</p>
@@ -106,18 +109,19 @@ const OrderDetailPage: React.FC = () => {
                 <p className="text-[12px] mt-0.5 opacity-80">We are reviewing your payment. Usually within 24 hours.</p>
               )}
             </div>
+            </div>
           </motion.div>
         )}
 
         {/* Upload proof panel */}
         {canUploadProof && (
-          <motion.div variants={staggerItem} className="bg-white border border-slate-200 rounded-xl p-5">
+          <motion.div variants={staggerItem} className="surface rounded-2xl p-5">
             <h3 className="text-[14px] font-bold text-slate-900 mb-3 flex items-center gap-2">
-              <Upload className="w-4 h-4 text-green-600" />
+              <Upload className="w-4 h-4 text-brand-dark" />
               {order.paymentProof ? 'Re-upload Payment Proof' : 'Upload Payment Proof'}
             </h3>
             {order.paymentProof && (
-              <div className="mb-3 p-3 bg-slate-50 border border-slate-200 rounded-lg flex items-center gap-3">
+              <div className="mb-3 flex items-center gap-3 rounded-xl border border-slate-200 bg-slate-50 p-3">
                 <CheckCircle className="w-4 h-4 text-green-500" />
                 <div>
                   <p className="text-[12px] font-medium text-slate-700">Proof uploaded {order.paymentProofUploadedAt ? formatDate(order.paymentProofUploadedAt) : ''}</p>
@@ -127,7 +131,7 @@ const OrderDetailPage: React.FC = () => {
                 </div>
               </div>
             )}
-            <label className={`flex flex-col items-center justify-center border-2 border-dashed rounded-xl p-5 cursor-pointer transition-all ${proofPreview ? 'border-green-300 bg-green-50/50' : 'border-slate-200 bg-slate-50 hover:border-green-300'}`}>
+            <label className={`flex cursor-pointer flex-col items-center justify-center rounded-2xl border-2 border-dashed p-5 transition-all ${proofPreview ? 'border-brand-primary bg-brand-primary/10' : 'border-slate-200 bg-slate-50 hover:border-brand-primary/50'}`}>
               <input type="file" accept="image/*,application/pdf" className="hidden" onChange={handleFileSelect} />
               {proofPreview ? (
                 <img src={proofPreview} alt="Preview" className="max-h-32 object-contain rounded-lg" />
@@ -151,12 +155,12 @@ const OrderDetailPage: React.FC = () => {
         )}
 
         {/* Items */}
-        <motion.div variants={staggerItem} className="bg-white border border-slate-200 rounded-xl p-5">
+        <motion.div variants={staggerItem} className="surface rounded-2xl p-5">
           <h3 className="text-[14px] font-bold text-slate-900 mb-4">Items</h3>
           <div className="space-y-3">
             {order.items?.map((item: any, i: number) => (
               <div key={i} className="flex gap-3 items-center">
-                <img src={getProductImage(item.product?.images)} alt={item.name}
+                <img src={getProductImage(item.product?.images)} alt={item.name} loading="lazy"
                   className="w-14 h-14 rounded-xl object-cover bg-slate-100 border border-slate-200 flex-shrink-0" />
                 <div className="flex-1 min-w-0">
                   <p className="text-[13px] font-semibold text-slate-800 truncate">{item.name}</p>
@@ -169,11 +173,11 @@ const OrderDetailPage: React.FC = () => {
         </motion.div>
 
         {/* Summary */}
-        <motion.div variants={staggerItem} className="bg-white border border-slate-200 rounded-xl p-5">
+        <motion.div variants={staggerItem} className="surface rounded-2xl p-5">
           <h3 className="text-[14px] font-bold text-slate-900 mb-4">Order Summary</h3>
           <div className="space-y-2 text-[13px]">
             <div className="flex justify-between text-slate-600"><span>Subtotal</span><span>{formatCurrency(order.subtotal)}</span></div>
-            <div className="flex justify-between text-slate-600"><span>Shipping</span><span>{order.shippingFee === 0 ? <span className="text-green-600 font-medium">Free</span> : formatCurrency(order.shippingFee)}</span></div>
+            <div className="flex justify-between text-slate-600"><span>Shipping</span><span>{order.shippingFee === 0 ? <span className="font-medium text-emerald-600">Free</span> : formatCurrency(order.shippingFee)}</span></div>
             <div className="flex justify-between text-slate-600"><span>Tax</span><span>{formatCurrency(order.tax)}</span></div>
             {order.discount > 0 && <div className="flex justify-between text-green-600"><span>Discount</span><span>-{formatCurrency(order.discount)}</span></div>}
             <div className="flex justify-between font-bold text-slate-900 text-[15px] pt-2 border-t border-slate-100">
@@ -182,6 +186,7 @@ const OrderDetailPage: React.FC = () => {
           </div>
         </motion.div>
       </motion.div>
+      </div>
     </motion.div>
   );
 };

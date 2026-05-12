@@ -54,14 +54,14 @@ export const Modal: React.FC<ModalProps> = ({
       onClick={(e) => { if (e.target === overlayRef.current) onClose(); }}
     >
       {/* Backdrop */}
-      <div className="absolute inset-0 bg-black/60 backdrop-blur-sm" />
+      <div className="absolute inset-0 bg-slate-950/65 backdrop-blur-md" />
 
       {/* Panel */}
       <div
         className={[
           'relative w-full',
           sizeClass[size],
-          'card p-6 shadow-2xl',
+          'surface p-6 shadow-lift rounded-2xl',
           'animate-in fade-in zoom-in-95 duration-200',
         ].join(' ')}
         role="dialog"
@@ -73,18 +73,18 @@ export const Modal: React.FC<ModalProps> = ({
           <div className="flex items-start justify-between mb-4">
             <div>
               {title && (
-                <h2 id="modal-title" className="text-lg font-semibold text-slate-900">
+                <h2 id="modal-title" className="text-lg font-bold text-slate-950 dark:text-white">
                   {title}
                 </h2>
               )}
               {description && (
-                <p className="text-sm text-slate-500 mt-0.5">{description}</p>
+                <p className="mt-0.5 text-sm text-slate-500 dark:text-slate-400">{description}</p>
               )}
             </div>
             {!hideClose && (
               <button
                 onClick={onClose}
-                className="ml-4 p-1.5 rounded-lg text-slate-500 hover:text-slate-900 hover:bg-slate-100 transition-colors"
+                className="ml-4 rounded-xl p-2 text-slate-500 transition-colors hover:bg-slate-100 hover:text-slate-900 dark:hover:bg-white/10 dark:hover:text-white"
                 aria-label="Close modal"
               >
                 <X size={18} />
@@ -126,7 +126,7 @@ export const ConfirmDialog: React.FC<ConfirmProps> = ({
   loading = false,
 }) => (
   <Modal isOpen={isOpen} onClose={onClose} title={title} size="sm">
-    <p className="text-sm text-slate-500 mb-6">{message}</p>
+    <p className="mb-6 text-sm text-slate-500 dark:text-slate-400">{message}</p>
     <div className="flex gap-3 justify-end">
       <button className="btn-secondary" onClick={onClose} disabled={loading}>
         {cancelLabel}
