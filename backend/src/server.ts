@@ -91,6 +91,14 @@ if (env.NODE_ENV === 'production') {
 }
 
 // ─── Routes ───────────────────────────────────────────────────────────────────
+app.get('/', (_req, res) => {
+  res.json({
+    success: true,
+    message: 'FLOW API is running',
+    health: '/api/v1/health',
+  });
+});
+
 app.use('/api/v1', routes);
 
 // ─── Error handling ───────────────────────────────────────────────────────────
