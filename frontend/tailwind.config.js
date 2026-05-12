@@ -6,14 +6,15 @@ export default {
     extend: {
       colors: {
         brand: {
-          neon: '#39FF14',
+          neon: '#9CFB63',
           primary: '#22C55E',
-          dark: '#16A34A',
+          dark: '#15803D',
+          ink: '#06140A',
         },
         dark: {
-          900: '#000000',
-          800: '#0F0F0F',
-          700: '#111827',
+          900: '#020617',
+          800: '#0F172A',
+          700: '#1E293B',
         }
       },
       fontFamily: {
@@ -25,15 +26,26 @@ export default {
         '3xl': '28px',
       },
       backgroundImage: {
-        'brand-gradient': 'linear-gradient(135deg, #39FF14 0%, #22C55E 50%, #16A34A 100%)',
-        'dark-gradient': 'linear-gradient(180deg, #000000 0%, #0F0F0F 50%, #111827 100%)',
+        'brand-gradient': 'linear-gradient(135deg, #9CFB63 0%, #22C55E 48%, #15803D 100%)',
+        'dark-gradient': 'linear-gradient(180deg, #020617 0%, #0F172A 52%, #111827 100%)',
+      },
+      boxShadow: {
+        soft: '0 1px 2px rgba(15, 23, 42, 0.04), 0 18px 50px rgba(15, 23, 42, 0.08)',
+        'soft-dark': '0 18px 50px rgba(0, 0, 0, 0.32)',
+        lift: '0 20px 60px rgba(15, 23, 42, 0.14)',
+        button: '0 10px 24px rgba(15, 23, 42, 0.18)',
+        'inner-soft': 'inset 0 1px 0 rgba(255,255,255,0.55)',
       },
       animation: {
         'flow-wave': 'flow-wave 10s infinite linear',
         'logo-reveal': 'logo-reveal 3s cubic-bezier(0.4, 0, 0.2, 1) forwards',
         'float-slow': 'float-slow 8s infinite ease-in-out',
+        shimmer: 'shimmer 1.8s infinite',
       },
       keyframes: {
+        shimmer: {
+          '100%': { transform: 'translateX(100%)' },
+        },
         'flow-wave': {
           '0%': { transform: 'translateX(-100%) rotate(0deg)' },
           '100%': { transform: 'translateX(100%) rotate(5deg)' },

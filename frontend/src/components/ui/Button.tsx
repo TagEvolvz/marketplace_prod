@@ -22,9 +22,9 @@ const variantClass: Record<Variant, string> = {
 };
 
 const sizeClass: Record<Size, string> = {
-  sm: 'px-3 py-1.5 text-xs',
-  md: '',   // default handled by btn-* classes
-  lg: 'px-6 py-3 text-sm',
+  sm: 'btn-sm',
+  md: '',
+  lg: 'btn-lg',
 };
 
 export const Button: React.FC<ButtonProps> = ({

@@ -69,12 +69,12 @@ export const StatCard: React.FC<StatCardProps> = ({
   <Card className={className}>
     <div className="flex items-start justify-between">
       <div>
-        <p className="text-sm text-slate-500 mb-1">{label}</p>
-        <p className="text-2xl font-bold text-slate-900">{value}</p>
+        <p className="mb-1 text-sm font-medium text-slate-500 dark:text-slate-400">{label}</p>
+        <p className="text-2xl font-bold text-slate-950 dark:text-white">{value}</p>
         {change !== undefined && (
           <p
             className={`text-xs mt-1 font-medium ${
-              change >= 0 ? 'text-emerald-400' : 'text-red-400'
+              change >= 0 ? 'text-emerald-600 dark:text-emerald-400' : 'text-red-500 dark:text-red-400'
             }`}
           >
             {change >= 0 ? '▲' : '▼'} {Math.abs(change)}% vs last period
@@ -111,8 +111,8 @@ export const SectionCard: React.FC<SectionCardProps> = ({
     {(title || action) && (
       <div className="flex items-center justify-between mb-4">
         <div>
-          {title && <h3 className="text-base font-semibold text-slate-900">{title}</h3>}
-          {description && <p className="text-sm text-slate-500 mt-0.5">{description}</p>}
+          {title && <h3 className="text-base font-semibold text-slate-950 dark:text-white">{title}</h3>}
+          {description && <p className="mt-0.5 text-sm text-slate-500 dark:text-slate-400">{description}</p>}
         </div>
         {action && <div>{action}</div>}
       </div>

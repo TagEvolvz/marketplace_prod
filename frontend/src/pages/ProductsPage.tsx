@@ -257,9 +257,9 @@ const ProductsPage: React.FC = () => {
   const updateFilter = (f: Partial<Filters>) => { setFilters((p) => ({ ...p, ...f })); setPage(1); };
 
   return (
-    <div className="relative pt-24 pb-16 overflow-hidden min-h-screen">
+    <div className="relative min-h-screen overflow-hidden pt-28 pb-16">
       {/* ── Dynamic Vibe Orbs ── */}
-      <div className="fixed inset-0 pointer-events-none -z-10">
+      <div className="hidden">
         <motion.div
           animate={{
             x: [0, 50, -20, 0],
@@ -288,12 +288,12 @@ const ProductsPage: React.FC = () => {
         />
       </div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 relative z-10">
+      <div className="page-container relative z-10">
         {/* Breadcrumbs */}
-        <nav className="flex items-center gap-2 text-[10px] font-bold uppercase tracking-widest text-slate-500 mb-6">
+        <nav className="mb-6 flex items-center gap-2 text-xs font-semibold text-slate-500">
           <Link to="/" className="hover:text-brand-primary transition-colors">Home</Link>
           <ChevronRight size={10} className="text-slate-700" />
-          <span className="text-slate-300 dark:text-white">Shop</span>
+          <span className="text-slate-800 dark:text-white">Shop</span>
           {filters.section && (
             <>
               <ChevronRight size={10} className="text-slate-700" />
@@ -314,34 +314,32 @@ const ProductsPage: React.FC = () => {
             <motion.h1
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
-              className="text-3xl md:text-5xl font-extrabold text-slate-900 dark:text-white tracking-tight mb-3 uppercase"
+              className="heading-1 mb-3 capitalize"
             >
               {filters.section ? filters.section : 'Collection'}
             </motion.h1>
-            <p className="text-sm text-slate-500 dark:text-slate-400 font-semibold tracking-wide">
-              DISCOVER <span className="text-brand-neon">{total}</span> FLOW-SYNTHESIZED ITEMS.
+            <p className="body-copy">
+              Discover <span className="font-bold text-brand-dark dark:text-brand-primary">{total}</span> products curated for fast, confident shopping.
             </p>
           </div>
 
           <div className="flex items-center gap-4 w-full md:w-auto">
              <div className="relative group flex-1 md:w-80">
-                <div className="absolute -inset-0.5 bg-brand-gradient rounded-2xl blur opacity-0 group-focus-within:opacity-20 transition duration-500" />
                 <div className="relative">
                   <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400 group-focus-within:text-brand-primary transition-colors" />
                   <input
                     type="text" placeholder="Refine results..." value={localSearch}
                     onChange={(e) => setLocalSearch(e.target.value)}
-                    className="bg-white dark:bg-dark-800 border border-slate-200 dark:border-white/5 rounded-xl py-2.5 pl-10 pr-3 text-sm font-semibold w-full outline-none focus:ring-4 focus:ring-brand-primary/10 transition-all"
+                    className="input pl-10"
                   />
                 </div>
              </div>
 
              <div className="relative hidden md:block group">
-                <div className="absolute -inset-0.5 bg-brand-gradient rounded-2xl blur opacity-0 group-hover:opacity-10 transition duration-500" />
                 <div className="relative">
                   <select
                     value={sort} onChange={(e) => { setSort(e.target.value); setPage(1); }}
-                    className="bg-white dark:bg-dark-800 border border-slate-200 dark:border-white/5 rounded-xl py-2.5 pl-4 pr-10 text-sm font-semibold appearance-none cursor-pointer outline-none hover:border-brand-primary/30 transition-all"
+                    className="input cursor-pointer appearance-none pr-10"
                   >
                     {SORT_OPTIONS.map((o) => <option key={o.value} value={o.value}>{o.label}</option>)}
                   </select>
@@ -381,7 +379,7 @@ const ProductsPage: React.FC = () => {
                     key={i}
                     animate={{ opacity: [0.5, 1, 0.5] }}
                     transition={{ duration: 1.5, repeat: Infinity, delay: i * 0.1 }}
-                    className="aspect-[4/5] rounded-2xl bg-slate-100 dark:bg-white/5"
+                    className="skeleton aspect-[4/5]"
                   />
                 ))}
               </div>
@@ -389,17 +387,17 @@ const ProductsPage: React.FC = () => {
               <motion.div
                 initial={{ opacity: 0, scale: 0.9 }}
                 animate={{ opacity: 1, scale: 1 }}
-                className="text-center py-24 glass rounded-2xl border border-dashed border-white/10"
+                className="glass rounded-2xl border border-dashed border-slate-300 py-24 text-center dark:border-white/10"
               >
                 <Package className="w-14 h-14 text-slate-600 mx-auto mb-5 opacity-20" />
-                <h3 className="text-xl font-extrabold text-slate-900 dark:text-white mb-3 tracking-tight uppercase">No items detected</h3>
-                <p className="text-sm text-slate-500 mb-7 max-w-sm mx-auto font-medium">The flow is empty for these parameters. Try recalibrating your search sensors.</p>
+                <h3 className="mb-3 text-xl font-extrabold tracking-tight text-slate-900 dark:text-white">No products found</h3>
+                <p className="mx-auto mb-7 max-w-sm text-sm font-medium text-slate-500">Try clearing filters or searching for a different product.</p>
                 <motion.button
                   whileTap={buttonTap}
                   onClick={() => updateFilter({ section: '', category: '', subcategory: '', minPrice: '', maxPrice: '' })}
-                  className="btn-outline !rounded-xl !text-xs !py-2.5 !px-5 font-bold uppercase tracking-wide"
+                  className="btn-outline text-xs"
                 >
-                  Reset Sensors
+                  Reset filters
                 </motion.button>
               </motion.div>
             ) : (

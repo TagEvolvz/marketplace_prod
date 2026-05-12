@@ -51,21 +51,21 @@ const CheckoutPage: React.FC = () => {
   };
 
   if (!cart?.items?.length && !order) return (
-    <div className="max-w-xl mx-auto px-4 py-20 text-center">
-      <p className="text-slate-500 mb-4">Your cart is empty.</p>
+    <div className="page-container pt-28 pb-20 text-center">
+      <p className="mb-4 text-slate-500">Your cart is empty.</p>
       <Link to="/products" className="btn-primary inline-flex">Browse Products</Link>
     </div>
   );
 
   return (
-    <motion.div variants={pageVariants} initial="initial" animate="animate" className="max-w-[1100px] mx-auto px-4 sm:px-6 py-8">
+    <motion.div variants={pageVariants} initial="initial" animate="animate" className="page-container pt-28 pb-16">
       {/* Breadcrumb + steps */}
-      <nav className="flex items-center gap-2 text-[12px] text-slate-500 mb-6">
-        <Link to="/" className="hover:text-green-600">Home</Link>
+      <nav className="mb-6 flex items-center gap-2 text-xs font-semibold text-slate-500">
+        <Link to="/" className="hover:text-brand-dark dark:hover:text-brand-primary">Home</Link>
         <span>/</span>
-        <Link to="/cart" className="hover:text-green-600">Cart</Link>
+        <Link to="/cart" className="hover:text-brand-dark dark:hover:text-brand-primary">Cart</Link>
         <span>/</span>
-        <span className="text-slate-800 font-medium">Checkout</span>
+        <span className="font-medium text-slate-900 dark:text-white">Checkout</span>
       </nav>
 
       {/* Step indicator */}
@@ -79,13 +79,13 @@ const CheckoutPage: React.FC = () => {
             <React.Fragment key={s}>
               <div className="flex items-center gap-2">
                 <div className={`w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold transition-all ${
-                  done ? 'bg-green-600 text-white' : active ? 'bg-green-600 text-white ring-4 ring-green-100' : 'bg-slate-100 text-slate-400'
+                  done ? 'bg-brand-primary text-white' : active ? 'bg-brand-primary text-white ring-4 ring-brand-primary/10' : 'bg-slate-100 text-slate-400'
                 }`}>
                   {done ? <CheckCircle className="w-4 h-4" /> : i + 1}
                 </div>
-                <span className={`text-[12px] font-semibold ${active ? 'text-green-600' : done ? 'text-slate-600' : 'text-slate-400'}`}>{labels[i]}</span>
+                <span className={`text-[12px] font-semibold ${active ? 'text-brand-dark dark:text-brand-primary' : done ? 'text-slate-600 dark:text-slate-300' : 'text-slate-400'}`}>{labels[i]}</span>
               </div>
-              {i < 2 && <div className={`flex-1 h-0.5 mx-2 ${done ? 'bg-green-400' : 'bg-slate-200'}`} />}
+              {i < 2 && <div className={`mx-2 h-0.5 flex-1 ${done ? 'bg-brand-primary' : 'bg-slate-200 dark:bg-white/10'}`} />}
             </React.Fragment>
           );
         })}
@@ -95,9 +95,9 @@ const CheckoutPage: React.FC = () => {
         {step === 'address' && (
           <motion.div key="address" variants={slideUp} initial="initial" animate="animate"
             className="grid grid-cols-1 lg:grid-cols-[1fr_300px] gap-6">
-            <div className="bg-white border border-slate-200 rounded-xl p-6">
-              <h2 className="text-[16px] font-bold text-slate-900 mb-5 flex items-center gap-2">
-                <MapPin className="w-5 h-5 text-green-600" /> Shipping Address
+            <div className="surface rounded-2xl p-6">
+              <h2 className="mb-5 flex items-center gap-2 text-base font-bold text-slate-950 dark:text-white">
+                <MapPin className="h-5 w-5 text-brand-dark dark:text-brand-primary" /> Shipping Address
               </h2>
               <div className="space-y-4">
                 <div>
@@ -145,8 +145,8 @@ const CheckoutPage: React.FC = () => {
             </div>
 
             {/* Mini order summary */}
-            <div className="bg-white border border-slate-200 rounded-xl p-5 h-fit">
-              <h3 className="text-[14px] font-bold text-slate-900 mb-4">Order Summary</h3>
+            <div className="surface h-fit rounded-2xl p-5">
+              <h3 className="mb-4 text-sm font-bold text-slate-950 dark:text-white">Order Summary</h3>
               <div className="space-y-2 text-[13px]">
                 <div className="flex justify-between text-slate-600"><span>Subtotal</span><span className="font-medium">{formatCurrency(subtotal)}</span></div>
                 <div className="flex justify-between text-slate-600"><span>Shipping</span><span className={`font-medium ${shipping === 0 ? 'text-green-600' : ''}`}>{shipping === 0 ? 'Free' : formatCurrency(shipping)}</span></div>
@@ -169,7 +169,7 @@ const CheckoutPage: React.FC = () => {
           <motion.div key="review" variants={slideUp} initial="initial" animate="animate"
             className="grid grid-cols-1 lg:grid-cols-[1fr_300px] gap-6">
             <div className="space-y-4">
-              <div className="bg-white border border-slate-200 rounded-xl p-5">
+              <div className="surface rounded-2xl p-5">
                 <h2 className="text-[15px] font-bold text-slate-900 mb-4">Review Your Order</h2>
                 <motion.div variants={staggerContainer} initial="initial" animate="animate" className="space-y-3">
                   {cart?.items?.map((item) => (
@@ -186,9 +186,9 @@ const CheckoutPage: React.FC = () => {
                 </motion.div>
               </div>
 
-              <div className="bg-slate-50 border border-slate-200 rounded-xl p-4">
-                <h3 className="text-[13px] font-bold text-slate-700 mb-2 flex items-center gap-2">
-                  <MapPin className="w-4 h-4 text-green-600" /> Shipping to
+              <div className="surface-muted rounded-2xl p-4">
+                <h3 className="mb-2 flex items-center gap-2 text-[13px] font-bold text-slate-700 dark:text-slate-200">
+                  <MapPin className="h-4 w-4 text-brand-dark dark:text-brand-primary" /> Shipping to
                 </h3>
                 <p className="text-[13px] text-slate-600">{form.street}, {form.city}{form.state ? `, ${form.state}` : ''}, {form.country} {form.postalCode}</p>
               </div>
@@ -200,7 +200,7 @@ const CheckoutPage: React.FC = () => {
             </div>
 
             <div className="space-y-4">
-              <div className="bg-white border border-slate-200 rounded-xl p-5 h-fit">
+              <div className="surface h-fit rounded-2xl p-5">
                 <h3 className="text-[14px] font-bold text-slate-900 mb-4">Order Total</h3>
                 <div className="space-y-2 text-[13px]">
                   <div className="flex justify-between text-slate-600"><span>Subtotal</span><span>{formatCurrency(subtotal)}</span></div>
@@ -241,7 +241,7 @@ const CheckoutPage: React.FC = () => {
 
             {/* Bank details */}
             <motion.div variants={staggerContainer} initial="initial" animate="animate" className="space-y-4">
-              <motion.div variants={staggerItem} className="bg-white border border-slate-200 rounded-xl p-5">
+              <motion.div variants={staggerItem} className="surface rounded-2xl p-5">
                 <h3 className="text-[14px] font-bold text-slate-900 mb-4 flex items-center gap-2">
                   <CreditCard className="w-5 h-5 text-green-600" /> Bank Transfer Details
                 </h3>
