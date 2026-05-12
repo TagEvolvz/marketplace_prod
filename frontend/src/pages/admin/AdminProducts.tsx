@@ -311,19 +311,21 @@ const AdminProducts: React.FC = () => {
   return (
     <div>
       {/* Header */}
-      <div className="flex items-center justify-between mb-6 gap-3 flex-wrap">
+      <div className="mb-6 flex flex-wrap items-end justify-between gap-3">
         <div>
-          <h1 className="text-[18px] font-bold text-slate-900">Products</h1>
-          <p className="text-[12px] text-slate-500 mt-0.5">{products.length} total products</p>
+          <p className="eyebrow mb-2">Catalog</p>
+          <h1 className="heading-1">Products</h1>
+          <p className="body-copy mt-2">{products.length} total products</p>
         </div>
         <motion.button onClick={() => { setEditProduct(null); setShowForm(true); }}
-          className="btn-secondary flex items-center gap-2" whileHover={{ scale: 1.02 }} whileTap={buttonTap}>
+          className="inline-flex h-11 items-center justify-center gap-2 rounded-xl bg-brand-primary px-5 text-sm font-extrabold text-slate-950 shadow-lift ring-2 ring-brand-primary/25 transition-all hover:-translate-y-0.5 hover:bg-brand-neon focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-brand-primary/30"
+          whileHover={{ scale: 1.02 }} whileTap={buttonTap}>
           <Plus className="w-4 h-4" /> Add New Product
         </motion.button>
       </div>
 
       {/* Filters */}
-      <div className="flex gap-3 mb-5 flex-wrap">
+      <div className="admin-card mb-6 flex flex-wrap gap-3 p-3">
         <div className="relative flex-1 max-w-xs">
           <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
           <input type="text" placeholder="Search products..." value={search}
@@ -337,13 +339,19 @@ const AdminProducts: React.FC = () => {
             { value: 'cosmetics', label: 'Cosmetics', icon: <Sparkles className="w-3.5 h-3.5" /> },
           ].map((s) => (
             <button key={s.value} onClick={() => setSectionFilter(s.value)}
-              className={`flex items-center gap-1.5 px-3 py-2 rounded-lg text-[12px] font-semibold border transition-all ${
-                sectionFilter === s.value ? 'bg-slate-900 text-white border-slate-900' : 'bg-white text-slate-600 border-slate-200 hover:border-slate-300'
+              className={`flex items-center gap-1.5 rounded-xl border px-3 py-2 text-[12px] font-semibold transition-all ${
+                sectionFilter === s.value ? 'border-slate-950 bg-slate-950 text-white' : 'border-slate-200 bg-white text-slate-600 hover:border-slate-300'
               }`}>
               {s.icon} {s.label}
             </button>
           ))}
         </div>
+        <button
+          onClick={() => { setEditProduct(null); setShowForm(true); }}
+          className="inline-flex h-10 items-center justify-center gap-2 rounded-xl border border-brand-primary/30 bg-brand-primary/10 px-4 text-xs font-extrabold text-brand-dark transition-colors hover:bg-brand-primary hover:text-slate-950 sm:hidden"
+        >
+          <Plus className="h-4 w-4" /> Add Product
+        </button>
       </div>
 
       {/* Grid */}
@@ -352,7 +360,7 @@ const AdminProducts: React.FC = () => {
           {Array.from({ length: 6 }).map((_, i) => <div key={i} className="skeleton h-56 rounded-xl" />)}
         </div>
       ) : products.length === 0 ? (
-        <div className="text-center py-16 border border-dashed border-slate-200 rounded-xl bg-slate-50">
+        <div className="surface-muted rounded-2xl border border-dashed border-slate-300 py-16 text-center">
           <Package className="w-12 h-12 text-slate-200 mx-auto mb-3" />
           <p className="text-slate-500 text-sm mb-4">No products found</p>
           <button onClick={() => setShowForm(true)} className="btn-secondary btn-sm">Add Your First Product</button>
@@ -362,7 +370,7 @@ const AdminProducts: React.FC = () => {
           className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
           {products.map((product) => (
             <motion.div key={product._id} variants={staggerItem}
-              className="bg-white border border-slate-200 rounded-xl overflow-hidden hover:shadow-md transition-shadow">
+              className="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-soft transition-all hover:-translate-y-0.5 hover:shadow-lift">
               <div className="aspect-video bg-slate-100 overflow-hidden relative">
                 <img src={getProductImage(product.images)} alt={product.name} className="w-full h-full object-cover" />
                 <div className="absolute top-2 left-2 flex gap-1">
@@ -402,7 +410,7 @@ const AdminProducts: React.FC = () => {
                 </div>
                 <div className="flex gap-2">
                   <motion.button onClick={() => { setEditProduct(product); setShowForm(true); }} whileTap={buttonTap}
-                    className="flex-1 btn-secondary btn-sm flex items-center justify-center gap-1.5">
+                    className="btn-secondary btn-sm flex flex-1 items-center justify-center gap-1.5">
                     <Edit3 className="w-3.5 h-3.5" /> Edit
                   </motion.button>
                   <motion.button onClick={() => window.confirm('Delete this product?') && deleteMutation.mutate(product._id)}

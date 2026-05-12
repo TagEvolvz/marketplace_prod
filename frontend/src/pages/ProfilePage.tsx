@@ -33,21 +33,22 @@ const ProfilePage: React.FC = () => {
   };
 
   return (
-    <div className="max-w-[1100px] mx-auto px-4 sm:px-6 py-8">
-      <nav className="flex items-center gap-2 text-[12px] text-slate-500 mb-6">
-        <Link to="/" className="hover:text-green-600">Home</Link>
+    <div className="page-container pt-28 pb-16">
+      <nav className="mb-6 flex items-center gap-2 text-xs font-semibold text-slate-500">
+        <Link to="/" className="hover:text-brand-dark">Home</Link>
         <span className="text-slate-300">/</span>
-        <span className="text-slate-800 font-medium">Profile</span>
+        <span className="font-medium text-slate-900">Profile</span>
       </nav>
 
       <div className="flex gap-6">
         <AccountSidebar />
 
         <div className="flex-1 min-w-0 space-y-4">
-          <h1 className="text-[18px] font-bold text-slate-900">Account Settings</h1>
+          <p className="eyebrow mb-2">Account</p>
+          <h1 className="heading-1">Account Settings</h1>
 
           {/* Avatar card */}
-          <div className="bg-white border border-slate-200 rounded-xl p-5 flex items-center gap-4">
+          <div className="surface flex items-center gap-4 rounded-2xl p-5">
             <div className="relative">
               {user?.avatar ? (
                 <img src={user.avatar} alt="" className="w-16 h-16 rounded-full object-cover ring-4 ring-green-100" />
@@ -68,7 +69,7 @@ const ProfilePage: React.FC = () => {
           </div>
 
           {/* Profile form */}
-          <div className="bg-white border border-slate-200 rounded-xl p-5">
+          <div className="surface rounded-2xl p-5">
             <h3 className="text-[14px] font-bold text-slate-900 mb-4">Personal Information</h3>
             <form onSubmit={handleSave} className="space-y-4">
               <div className="grid grid-cols-2 gap-4">
@@ -105,7 +106,7 @@ const ProfilePage: React.FC = () => {
           </div>
 
           {/* Password */}
-          <div className="bg-white border border-slate-200 rounded-xl p-5">
+          <div className="surface rounded-2xl p-5">
             <h3 className="text-[14px] font-bold text-slate-900 mb-4">Change Password</h3>
             <form onSubmit={handlePwChange} className="space-y-4">
               <div>

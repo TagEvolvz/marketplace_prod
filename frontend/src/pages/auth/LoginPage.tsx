@@ -16,22 +16,21 @@ const schema = z.object({
 type FormData = z.infer<typeof schema>;
 
 const AuthLayout: React.FC<{ children: React.ReactNode; title: string; subtitle: string }> = ({ children, title, subtitle }) => (
-  <div className="auth-surface min-h-screen bg-slate-50 text-slate-900 flex">
-    {/* Left panel: simplified brand panel (no marketplace marketing) */}
-    <div className="hidden lg:flex w-5/12 bg-slate-900 relative overflow-hidden flex-col items-center justify-center p-12">
+  <div className="auth-surface flex min-h-screen bg-[radial-gradient(circle_at_top_left,rgba(34,197,94,0.12),transparent_30rem),linear-gradient(180deg,#ffffff,#f7f8fb)] text-slate-900">
+    <div className="relative hidden w-5/12 overflow-hidden bg-slate-950 p-12 lg:flex lg:flex-col lg:items-center lg:justify-center">
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgba(34,197,94,0.22),transparent_26rem)]" />
       <div className="relative text-center">
         <Link to="/" className="inline-flex items-center gap-3 mb-8">
           <img src={logo} alt="FLOW" className="w-12 h-12 object-contain rounded-xl" />
           <span className="text-2xl font-extrabold text-white">FLOW</span>
         </Link>
-        <h2 className="text-3xl font-extrabold text-white mb-3 leading-tight">Secure account access</h2>
-        <p className="text-slate-300 text-base mb-6 max-w-xs mx-auto">Sign in to your account to continue.</p>
+        <h2 className="mb-3 text-4xl font-extrabold leading-tight text-white">Secure account access</h2>
+        <p className="mx-auto mb-6 max-w-xs text-base leading-7 text-slate-300">Continue shopping, manage orders, and checkout faster.</p>
       </div>
     </div>
 
-    {/* Right panel */}
-    <div className="flex-1 flex flex-col items-center justify-center p-6 sm:p-12">
-      <div className="w-full max-w-md">
+    <div className="flex flex-1 flex-col items-center justify-center p-6 sm:p-12">
+      <div className="w-full max-w-md rounded-3xl border border-slate-200 bg-white/90 p-6 shadow-soft backdrop-blur-xl sm:p-8">
         <Link to="/" className="inline-flex items-center gap-1.5 text-slate-500 hover:text-brand-primary transition-colors mb-8 text-sm font-medium">
           <ArrowLeft className="w-4 h-4" /> Back to Home
         </Link>

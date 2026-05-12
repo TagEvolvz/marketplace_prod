@@ -100,11 +100,12 @@ const AdminOrders: React.FC = () => {
 
   return (
     <div>
-      <div className="flex items-center justify-between mb-6 flex-wrap gap-3">
+      <div className="mb-6 flex flex-wrap items-end justify-between gap-3">
         <div>
-          <h1 className="text-[18px] font-bold text-slate-900">Orders</h1>
+          <p className="eyebrow mb-2">Fulfilment</p>
+          <h1 className="heading-1">Orders</h1>
           {pendingProofCount > 0 && (
-            <p className="text-[12px] text-amber-600 font-semibold mt-0.5">
+            <p className="mt-2 text-sm font-semibold text-amber-600">
               {pendingProofCount} order(s) awaiting payment review
             </p>
           )}
@@ -112,7 +113,7 @@ const AdminOrders: React.FC = () => {
         <div className="flex gap-2 flex-wrap">
           {['', 'awaiting_confirmation', 'confirmed', 'rejected'].map((s) => (
             <button key={s} onClick={() => setPaymentFilter(s)}
-              className={`px-3 py-1.5 rounded-full text-[12px] font-semibold border transition-all ${
+              className={`rounded-full border px-3 py-1.5 text-[12px] font-semibold transition-all ${
                 paymentFilter === s ? 'bg-slate-900 text-white border-slate-900' : 'bg-white text-slate-600 border-slate-200 hover:border-slate-300'
               }`}>
               {s === '' ? 'All' : s === 'awaiting_confirmation' ? 'Awaiting Review' : s.charAt(0).toUpperCase() + s.slice(1)}
@@ -122,7 +123,7 @@ const AdminOrders: React.FC = () => {
       </div>
 
       {/* Search */}
-      <div className="relative mb-5">
+      <div className="admin-card relative mb-5 p-3">
         <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
         <input type="text" placeholder="Search order number or email..." value={search}
           onChange={(e) => setSearch(e.target.value)}
@@ -132,7 +133,7 @@ const AdminOrders: React.FC = () => {
       {isLoading ? (
         <div className="space-y-3">{Array.from({ length: 5 }).map((_, i) => <div key={i} className="skeleton h-20 rounded-xl" />)}</div>
       ) : orders.length === 0 ? (
-        <div className="text-center py-16 border border-slate-200 rounded-xl bg-slate-50">
+        <div className="surface-muted rounded-2xl border border-dashed border-slate-300 py-16 text-center">
           <p className="text-slate-500">No orders found.</p>
         </div>
       ) : (
@@ -142,7 +143,7 @@ const AdminOrders: React.FC = () => {
             const needsAction = order.paymentProof && order.paymentStatus === 'awaiting_confirmation';
             return (
               <motion.div key={order._id} variants={staggerItem}
-                className={`bg-white border rounded-xl p-4 flex items-center gap-4 flex-wrap ${needsAction ? 'border-amber-300 bg-amber-50/30' : 'border-slate-200'}`}>
+                className={`flex flex-wrap items-center gap-4 rounded-2xl border p-4 shadow-soft transition-all hover:-translate-y-0.5 hover:shadow-lift ${needsAction ? 'border-amber-300 bg-amber-50/70' : 'border-slate-200 bg-white'}`}>
                 {/* Order info */}
                 <div className="flex-1 min-w-[180px]">
                   <div className="flex items-center gap-2 flex-wrap mb-0.5">

@@ -26,20 +26,21 @@ const WishlistPage: React.FC = () => {
   };
 
   return (
-    <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8 animate-fade-in">
-      <nav className="flex items-center gap-2 text-xs text-slate-500 mb-6">
-        <Link to="/" className="hover:text-green-600">Home</Link>
+    <div className="page-container pt-28 pb-16">
+      <nav className="mb-6 flex items-center gap-2 text-xs font-semibold text-slate-500">
+        <Link to="/" className="hover:text-brand-dark">Home</Link>
         <span>/</span>
         <span className="text-slate-800 font-medium">Wishlist</span>
       </nav>
-      <h1 className="text-2xl font-bold text-slate-900 mb-6">Wishlist</h1>
+      <p className="eyebrow mb-2">Saved</p>
+      <h1 className="heading-1 mb-6">Wishlist</h1>
 
       {isLoading ? (
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
           {Array.from({ length: 4 }).map((_, i) => <div key={i} className="skeleton aspect-square rounded-xl" />)}
         </div>
       ) : items.length === 0 ? (
-        <div className="card p-16 text-center">
+        <div className="surface rounded-2xl p-16 text-center">
           <Heart className="w-14 h-14 text-slate-200 mx-auto mb-4" />
           <h3 className="font-semibold text-slate-700 mb-1">Your wishlist is empty</h3>
           <p className="text-sm text-slate-500 mb-5">Save items you love to buy them later</p>
@@ -48,10 +49,10 @@ const WishlistPage: React.FC = () => {
       ) : (
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
           {items.map((product: any) => (
-            <div key={product._id} className="card-hover group overflow-hidden">
+            <div key={product._id} className="card-hover group overflow-hidden p-0">
               <Link to={`/products/${product.slug}`} className="block">
                 <div className="aspect-square overflow-hidden bg-slate-100">
-                  <img src={getProductImage(product.images)} alt={product.name}
+                  <img src={getProductImage(product.images)} alt={product.name} loading="lazy"
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
                 </div>
                 <div className="p-3.5">

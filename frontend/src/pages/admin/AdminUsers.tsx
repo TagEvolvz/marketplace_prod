@@ -26,14 +26,15 @@ const AdminUsers: React.FC = () => {
 
   return (
     <div>
-      <div className="flex items-center justify-between mb-6">
+      <div className="mb-6 flex items-end justify-between">
         <div>
-          <h1 className="text-[18px] font-bold text-slate-900">Customers</h1>
-          <p className="text-[12px] text-slate-500 mt-0.5">{users.length} registered customers</p>
+          <p className="eyebrow mb-2">Accounts</p>
+          <h1 className="heading-1">Customers</h1>
+          <p className="body-copy mt-2">{users.length} registered customers</p>
         </div>
       </div>
 
-      <div className="relative mb-5">
+      <div className="admin-card relative mb-5 p-3">
         <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
         <input type="text" placeholder="Search by name or email..." value={search}
           onChange={(e) => setSearch(e.target.value)} className="input pl-9 text-[13px]" />
@@ -42,14 +43,14 @@ const AdminUsers: React.FC = () => {
       {isLoading ? (
         <div className="space-y-3">{Array.from({ length: 5 }).map((_, i) => <div key={i} className="skeleton h-16 rounded-xl" />)}</div>
       ) : users.length === 0 ? (
-        <div className="text-center py-16 border border-slate-200 rounded-xl bg-slate-50">
+        <div className="surface-muted rounded-2xl border border-dashed border-slate-300 py-16 text-center">
           <p className="text-slate-500 text-sm">No customers found</p>
         </div>
       ) : (
         <motion.div variants={staggerContainer} initial="initial" animate="animate" className="space-y-2">
           {users.map((user: any) => (
             <motion.div key={user._id} variants={staggerItem}
-              className="bg-white border border-slate-200 rounded-xl px-4 py-3 flex items-center gap-4 flex-wrap">
+              className="flex flex-wrap items-center gap-4 rounded-2xl border border-slate-200 bg-white px-4 py-3 shadow-soft transition-all hover:-translate-y-0.5 hover:shadow-lift">
               <div className="w-9 h-9 rounded-full bg-slate-100 border border-slate-200 flex items-center justify-center flex-shrink-0">
                 <span className="text-xs font-bold text-slate-700">
                   {user.firstName?.[0]}{user.lastName?.[0]}

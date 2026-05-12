@@ -27,8 +27,8 @@ const AccountSidebar: React.FC = () => {
   ];
 
   return (
-    <aside className="w-[200px] flex-shrink-0">
-      <div className="bg-white border border-slate-200 rounded-xl overflow-hidden">
+    <aside className="hidden w-[220px] flex-shrink-0 md:block">
+      <div className="surface overflow-hidden rounded-2xl">
         <div className="px-4 py-3 border-b border-slate-100">
           <p className="text-[13px] font-semibold text-slate-800">{user?.firstName} {user?.lastName}</p>
           <p className="text-[11px] text-slate-500 truncate">{user?.email}</p>
@@ -39,7 +39,7 @@ const AccountSidebar: React.FC = () => {
               className={({ isActive }) =>
                 `flex items-center gap-2.5 px-4 py-2.5 text-[13px] font-medium transition-colors ${
                   isActive && l.label === 'Orders'
-                    ? 'text-green-600 bg-green-50 border-r-2 border-green-600'
+                    ? 'border-r-2 border-brand-primary bg-brand-primary/10 text-brand-dark'
                     : 'text-slate-600 hover:bg-slate-50 hover:text-slate-900'
                 }`
               }>
@@ -75,25 +75,26 @@ const OrdersPage: React.FC = () => {
   const orders: Order[] = Array.isArray(data) ? data : data?.data || [];
 
   return (
-    <div className="max-w-[1100px] mx-auto px-4 sm:px-6 py-8">
-      <nav className="flex items-center gap-2 text-[12px] text-slate-500 mb-6">
-        <Link to="/" className="hover:text-green-600">Home</Link>
+    <div className="page-container pt-28 pb-16">
+      <nav className="mb-6 flex items-center gap-2 text-xs font-semibold text-slate-500">
+        <Link to="/" className="hover:text-brand-dark">Home</Link>
         <span className="text-slate-300">/</span>
-        <span className="text-slate-800 font-medium">My Orders</span>
+        <span className="font-medium text-slate-900">My Orders</span>
       </nav>
 
       <div className="flex gap-6">
         <AccountSidebar />
 
         <div className="flex-1 min-w-0">
-          <h1 className="text-[18px] font-bold text-slate-900 mb-5">My Orders</h1>
+          <p className="eyebrow mb-2">Account</p>
+          <h1 className="heading-1 mb-5">My Orders</h1>
 
           {isLoading ? (
             <div className="space-y-3">
               {Array.from({ length: 4 }).map((_, i) => <div key={i} className="skeleton h-24 rounded-xl" />)}
             </div>
           ) : orders.length === 0 ? (
-            <div className="bg-white border border-slate-200 rounded-xl p-16 text-center">
+            <div className="surface rounded-2xl p-16 text-center">
               <Package className="w-12 h-12 text-slate-200 mx-auto mb-3" />
               <p className="text-slate-500 text-sm">No orders yet.</p>
               <Link to="/products" className="btn-primary mt-4 inline-flex">Browse Products</Link>
@@ -101,7 +102,7 @@ const OrdersPage: React.FC = () => {
           ) : (
             <div className="space-y-3">
               {orders.map((order) => (
-                <div key={order._id} className="bg-white border border-slate-200 rounded-xl p-4 flex items-center gap-4 hover:shadow-[0_2px_12px_rgba(0,0,0,0.06)] transition-shadow">
+                <div key={order._id} className="flex items-center gap-4 rounded-2xl border border-slate-200 bg-white p-4 shadow-soft transition-all hover:-translate-y-0.5 hover:shadow-lift">
                   {/* Product thumbnail */}
                   <div className="flex-shrink-0">
                     <img
@@ -129,7 +130,7 @@ const OrdersPage: React.FC = () => {
                   <div className="flex flex-col items-end gap-2 flex-shrink-0">
                     <span className="text-[15px] font-bold text-slate-900">{formatCurrency(order.total)}</span>
                     <Link to={`/orders/${order.orderNumber}`}
-                      className="text-[12px] font-semibold text-green-600 hover:text-green-700 border border-green-200 hover:border-green-400 px-3 py-1.5 rounded-lg transition-colors flex items-center gap-1">
+                      className="flex items-center gap-1 rounded-lg border border-brand-primary/30 px-3 py-1.5 text-[12px] font-semibold text-brand-dark transition-colors hover:border-brand-primary">
                       View Details <ChevronRight className="w-3.5 h-3.5" />
                     </Link>
                   </div>
